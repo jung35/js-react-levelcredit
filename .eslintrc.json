@@ -1,0 +1,90 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "env": { "browser": true, "es6": true, "jest": true, "jasmine": true },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": { "jsx": true },
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "react", "prettier", "react-hooks"],
+  "globals": {
+    "__dirname": true,
+    "process": true,
+    "module": true,
+    "browser": true,
+    "$": true,
+    "$$": true
+  },
+  "settings": {
+    "react": {
+      "createClass": "createReactClass", // Regex for Component Factory to use,
+      // default to "createReactClass"
+      "pragma": "React", // Pragma to use, default to "React"
+      "version": "detect" // React version. "detect" automatically picks the version you have installed.
+      // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
+      // default to latest and warns if missing
+      // It will default to "detect" in the future
+    },
+    "propWrapperFunctions": [
+      // The names of any function used to wrap propTypes, e.g. `forbidExtraProps`. If this isn't set, any propTypes wrapped in a function will be skipped.
+      "forbidExtraProps",
+      { "property": "freeze", "object": "Object" },
+      { "property": "myFavoriteWrapper" }
+    ],
+    "linkComponents": [
+      // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
+      "Hyperlink",
+      { "name": "Link", "linkAttribute": "to" }
+    ]
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 120,
+        "arrowParens": "always",
+        "trailingComma": "es5",
+        "singleQuote": false
+      }
+    ],
+    "indent": "off",
+    "linebreak-style": ["error", "unix"],
+    "quotes": "off",
+    "semi": ["error", "always"],
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignoreTrailingComments": true,
+        "ignoreUrls": true,
+        "ignoreRegExpLiterals": true,
+        "ignorePattern": "^import [^,]+ from |^export | implements "
+      }
+    ],
+    "no-console": "error",
+    "space-before-blocks": "error",
+    "keyword-spacing": "error",
+    "eol-last": "error",
+    "no-trailing-spaces": "error",
+    "newline-before-return": "error",
+    "curly": "error",
+    "comma-spacing": "error",
+    "object-curly-spacing": ["error", "always"],
+    "key-spacing": "error",
+    "arrow-parens": ["error", "always"],
+    "arrow-spacing": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "no-warning-comments": "warn",
+    "react/jsx-no-target-blank": "off",
+    "no-fallthrough": "off",
+    "require-atomic-updates": "off",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}
