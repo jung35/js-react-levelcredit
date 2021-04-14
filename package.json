@@ -1,18 +1,16 @@
 {
-  "name": "@credit-jeeves/js-react-levelcredit",
+  "name": "@levelcredit/js-react-levelcredit",
   "version": "1.0.0",
   "description": "LevelCredit React Library",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "build": "rollup -c rollup.config.js",
+    "watch": "rollup -c rollupdev.config.js -w"
   },
   "peerDependencies": {
     "moment": "^2.29.0",
     "react": "^16.8.0 || ^17.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0",
-    "react-jss": "^10.6.0",
-    "recharts": "^2.0.0"
+    "react-dom": "^16.8.0 || ^17.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
@@ -41,6 +39,7 @@
     "prettier": "^2.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-jss": "^10.6.0",
     "regenerator-runtime": "^0.13.7",
     "rollup": "^2.44.0",
     "rollup-plugin-cleaner": "^1.0.0",
@@ -49,7 +48,6 @@
   },
   "dependencies": {
     "moment": "^2.29.1",
-    "react-jss": "^10.6.0",
     "recharts": "^2.0.9"
   }
 }
