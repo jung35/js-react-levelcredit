@@ -47,6 +47,7 @@
     "whatwg-fetch": "^3.6.2"
   },
   "dependencies": {
+    "@babel/runtime": "^7.13.10",
     "moment": "^2.29.1",
     "recharts": "^2.0.9"
   }
