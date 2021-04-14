@@ -6,6 +6,7 @@
 * `react-dom`
 * `recharts`
 * `moment`
+* `react-jss`
 
 ## Dev Dependencies (when using rollup.watch)
 

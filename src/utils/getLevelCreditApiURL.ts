@@ -11,7 +11,7 @@ export default function getLevelCreditApiURL(values: LevelCreditProviderProps): 
         return "https://mylevelcredit.qa2.rt-devel.com";
 
       case "sandbox":
-        return "https://mylevelcredit.sandbox.rt-stg.com";
+        return "https://mylevelcredit.sandbox2.rt-stg.com";
 
       case "production":
         return "https://my.levelcredit.com";
