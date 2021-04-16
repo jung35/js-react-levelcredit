@@ -5,12 +5,15 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    "watch": "rollup -c rollupdev.config.js -w"
+    "watch": "rollup -c rollupdev.config.js -w",
+    "release": "npm run build && npm publish --registry=https://npm.pkg.github.com"
   },
   "peerDependencies": {
     "moment": "^2.29.0",
     "react": "^16.8.0 || ^17.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0"
+    "react-dom": "^16.8.0 || ^17.0.0",
+    "recharts": "^2.0.9",
+    "react-jss": "^10.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
@@ -39,7 +42,6 @@
     "prettier": "^2.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-jss": "^10.6.0",
     "regenerator-runtime": "^0.13.7",
     "rollup": "^2.44.0",
     "rollup-plugin-cleaner": "^1.0.0",
@@ -49,6 +51,7 @@
   "dependencies": {
     "@babel/runtime": "^7.13.10",
     "moment": "^2.29.1",
-    "recharts": "^2.0.9"
+    "recharts": "^2.0.9",
+    "react-jss": "^10.6.0"
   }
 }
