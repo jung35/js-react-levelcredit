@@ -1,6 +1,5 @@
 import { ScoreAPIScores, ScoreAPIScoresScores } from "../ScoreAPI/useScoreAPI";
 import moment from "moment";
-import { isNumber } from "node:util";
 
 type ChartScoreData = { month: string; date?: string; score?: number };
 export type ChartScoreParseStyle = "11-months-past" | "12-scores";
