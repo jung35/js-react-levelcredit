@@ -2,17 +2,12 @@
 
 ## Dependencies
 
-* `react@^16.8.0`
-* `react-dom@^16.8.0`
-* `recharts@^2.0.9` -- TODO: making it optional
-* `moment@^2.29.0`
-* `react-jss@^10.6.0`
+`react@^16.8.0`, `react-dom@^16.8.0`, `recharts@^2.0.9`, `moment@^2.29.0`, `react-jss@^8.6.1`
 
 ### Dependency when using watch
 This is to lessen build time during development
 
-* Above dependencies
-* `whatwg-fetch@^3.6.2`
+Above dependencies, `whatwg-fetch@^3.6.2`
 
 ## API
 

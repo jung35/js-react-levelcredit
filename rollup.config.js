@@ -7,13 +7,13 @@ import commonjs from "@rollup/plugin-commonjs";
 const config = {
   input: "src/index.ts",
   external: ["react", "react-dom", "recharts", "moment", "react-jss"],
-  output: { dir: "dist", format: "cjs" },
+  output: { dir: "dist", format: "esm" },
   plugins: [
     cleaner({ targets: ["./dist/"] }),
     typescript(),
     nodeResolve(),
     commonjs({ include: [/node_modules/] }),
-    babel({ babelHelpers: "runtime" }),
+    babel({ babelHelpers: "runtime", exclude: /node_modules/ }),
   ],
 };
 
