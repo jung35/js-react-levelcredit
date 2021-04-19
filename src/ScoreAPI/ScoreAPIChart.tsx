@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import parseScoresForChart, { ChartScoreParseStyle } from "../utils/parseScoresForChart";
 import { useScoreAPI, ScoreAPIScores } from "./useScoreAPI";
-import { createUseStyles, DefaultTheme, Styles } from "react-jss";
+import withStyles, { Styles } from "react-jss";
 
 type ScoreAPIChartStyles = {
-  theme?: DefaultTheme;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  classes?: any;
   dataParseStyle?: ChartScoreParseStyle;
   XAxisStyles?: Styles;
   YAxisStyles?: Styles;
@@ -17,54 +18,63 @@ type ScoreAPIChartProps = ScoreAPIChartStyles & {
   display_token: string;
 };
 
-const useStyles = createUseStyles(
-  {
-    root: {},
-    XAxis: (props: ScoreAPIChartStyles) => ({
-      fontSize: 12,
-      fill: "#666",
-      textAnchor: "end",
-      x: 0,
-      y: 0,
-      transform: "rotate(-35deg) translate(0, 15px)",
-      ...(props.XAxisStyles || {}),
-    }),
-    YAxis: (props: ScoreAPIChartStyles) => ({
-      fontSize: 12,
-      fill: "#666",
-      textAnchor: "end",
-      x: 0,
-      y: 0,
-      transform: "translate(0, 5px)",
-      ...(props.YAxisStyles || {}),
-    }),
-    Line: (props: ScoreAPIChartStyles) => ({
-      stroke: "#8884d8",
-      ...(props.LineStyles || {}),
-    }),
-    TooltipContentStyles: (props: ScoreAPIChartStyles) => ({
-      fontSize: 12,
-      padding: 7,
-      backgroundColor: "#fff",
-      border: "1px solid #777",
-      ...(props.TooltipContentStyles || {}),
-      "& p.label": {
-        fontWeight: "bold",
-        fontSize: 13,
-        ...((props.TooltipContentStyles && (props.TooltipContentStyles["& p.label"] as Styles)) || {}),
-      },
-      "& p": {
-        margin: 0,
-        ...((props.TooltipContentStyles && (props.TooltipContentStyles["& p"] as Styles)) || {}),
-      },
-    }),
-  },
-  { name: "ScoreAPIChart" }
-);
+type ScoreAPIChartStylesFunc = (props: ScoreAPIChartStyles) => React.CSSProperties;
 
-export function ScoreAPIChart(props: ScoreAPIChartProps): JSX.Element {
-  const { display_token, ...rest } = props;
-  const classes = useStyles(rest);
+const rootStyles: React.CSSProperties = {};
+
+const XAxisStyles: ScoreAPIChartStylesFunc = (props) => ({
+  fontSize: 12,
+  fill: "#666",
+  textAnchor: "end",
+  x: 0,
+  y: 0,
+  transform: "rotate(-35deg) translate(0, 15px)",
+  ...(props.XAxisStyles || {}),
+});
+
+const YAxisStyles: ScoreAPIChartStylesFunc = (props) => ({
+  fontSize: 12,
+  fill: "#666",
+  textAnchor: "end",
+  x: 0,
+  y: 0,
+  transform: "translate(0, 5px)",
+  ...(props.YAxisStyles || {}),
+});
+
+const LineStyles: ScoreAPIChartStylesFunc = (props) => ({
+  stroke: "#8884d8",
+  ...(props.LineStyles || {}),
+});
+
+const TooltipContentStyles: ScoreAPIChartStylesFunc = (props) => ({
+  fontSize: 12,
+  padding: 7,
+  backgroundColor: "#fff",
+  border: "1px solid #777",
+  ...(props.TooltipContentStyles || {}),
+  "& p.label": {
+    fontWeight: "bold",
+    fontSize: 13,
+    ...((props.TooltipContentStyles && (props.TooltipContentStyles["& p.label"] as Styles)) || {}),
+  },
+  "& p": {
+    margin: 0,
+    ...((props.TooltipContentStyles && (props.TooltipContentStyles["& p"] as Styles)) || {}),
+  },
+});
+
+const styles: unknown = {
+  root: rootStyles,
+  XAxis: XAxisStyles,
+  YAxis: YAxisStyles,
+  Line: LineStyles,
+  TooltipContentStyles: TooltipContentStyles,
+};
+
+function ScoreAPIChart(props: ScoreAPIChartProps): JSX.Element {
+  const display_token = props.display_token;
+  const classes = props.classes;
   const fetchScores = useScoreAPI();
   const [scores, setScores] = useState<ScoreAPIScores | null>(null);
   const [chart_data, scores_min, scores_max] = parseScoresForChart(scores, props.dataParseStyle || "11-months-past");
@@ -102,13 +112,17 @@ export function ScoreAPIChart(props: ScoreAPIChartProps): JSX.Element {
             type="monotone"
             dataKey="score"
             className={classes.Line}
-            stroke={(props.LineStyles?.stroke as string) || "#666"}
+            stroke={(props.LineStyles?.stroke || "#666") as string}
           />
         </LineChart>
       </ResponsiveContainer>
     </div>
   );
 }
+
+const fallbackHOC = withStyles(styles as Styles)(ScoreAPIChart);
+
+export { fallbackHOC as ScoreAPIChart };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function AxisTick(props: any) {
