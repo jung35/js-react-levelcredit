@@ -1,4 +1,4 @@
-# Levelcredit React Component Library
+# LevelCredit React Component Library
 
 ## Dependencies
 
@@ -8,6 +8,36 @@
 This is to lessen build time during development
 
 Above dependencies, `whatwg-fetch@^3.6.2`
+
+## Getting Started
+
+To start using either the components like `<ScoreAPIChart />` or react hook like `useScoreAPI()`, you will need to wrap around the part that is being used with a provider. The LevelCredit provider will help expose which api endpoint the react library will use. 
+
+### Example
+```js
+export default function App() {
+    const credit_display_token = ...; // Backend to get the display token for Score API
+
+    return (
+        <LevelCreditProvider env="production">
+            <ScoreAPIChart display_token={credit_display_token} />
+            <CustomHookComponent />
+        </LevelCreditProvider>
+    );
+}
+
+function CustomHookComponent() {
+    const credit_display_token = ...; // Backend to get the display token for Score API
+    const fetchScores = useScoreAPI();
+
+    React.useEffect(function() {
+        (async function () {
+            const scores = await fetchScores(credit_display_token);
+            // ...
+        }())
+    },[])
+}
+```
 
 ## API
 
@@ -21,7 +51,7 @@ import { LevelCreditProvider } from "@levelcredit/js-react-levelcredit";
 | env | `"development" \| "sandbox" \| "production"` | *`NULL`* |
 | api_url | `string` | *`NULL`* |
 
-### `<ScoreAPICharts />`
+### `<ScoreAPIChart />`
 
 ```js
 import { ScoreAPIChart } from "@levelcredit/js-react-levelcredit";
