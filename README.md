@@ -1,8 +1,12 @@
-# LevelCredit React Component Library
+# LevelCredit - Credit Score ReactJS Component
+## Overview
+This ReactJS component will allow a partner to display the TransUnion Vantage 2.0 Credit Score from LevelCredit with the user's browser while maintaining security and compliance with TransUnion's policies. 
+Example of what this will return:
 
-## Repositories
-* [Component Library (links to GitHub)](https://github.com/levelcredit/js-react-levelcredit)
-* [Sample Project (links to GitHub)](https://github.com/levelcredit/js-app-component-demo)
+![Credit Score Component Example](https://files.readme.io/7c5c66b-ScoreComponent.png)
+## GitHub Repositories
+* [Component Library](https://github.com/levelcredit/js-react-levelcredit)
+* [Sample Project](https://github.com/levelcredit/js-app-component-demo)
 
 ## Getting Started
 
