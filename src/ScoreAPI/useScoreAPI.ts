@@ -1,7 +1,8 @@
 import { useCallback } from "react";
 import { useLevelCredit } from "../LevelCreditProvider";
 
-type ScoreAPIFetchScores = (score_display_token: string) => Promise<ScoreAPIScores>;
+export type ScoreAPIDisplayToken = string;
+type ScoreAPIFetchScores = (score_display_token: ScoreAPIDisplayToken) => Promise<ScoreAPIScores>;
 
 export type ScoreAPIScores = {
   current_score: number;

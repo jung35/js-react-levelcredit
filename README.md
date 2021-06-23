@@ -79,11 +79,14 @@ import { ScoreAPIChart } from "@levelcredit/js-react-levelcredit";
 
 | Props | Type | Default |
 |---|---|---|
+| display_token | `string` | `""` |
 | dataParseStyle | `"11-months-past" \| "12-scores"` | `"11-months-past"` |
-| XAxisStyles | `Jss.Styles` | `{}` |
-| YAxisStyles | `Jss.Styles` | `{}` |
-| LineStyles | `Jss.Styles` | `{}` |
-| TooltipContentStyles | `Jss.Styles` | `{}` |
+
+JSS Classes
+* XAxisStyles 
+* YAxisStyles
+* LineStyles
+* TooltipContentStyles
 
 
 ### `useScoreAPI()`
