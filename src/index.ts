@@ -4,3 +4,4 @@ import "whatwg-fetch";
 export { LevelCreditProvider } from "./LevelCreditProvider";
 export { ScoreAPIChart } from "./ScoreAPI/ScoreAPIChart";
 export { useScoreAPI } from "./ScoreAPI/useScoreAPI";
+export { ScoreAPIScore } from "./ScoreAPI/ScoreAPIScore/ScoreAPIScore";
