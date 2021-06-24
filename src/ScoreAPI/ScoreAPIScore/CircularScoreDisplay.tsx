@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ScoreAPIDisplayToken, ScoreAPIScores, useScoreAPI } from "../useScoreAPI";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import { getChangeSinceLastScore, getCurrentScore, getScoreRule, parseLastUpdatedDay } from "./ScoreAPIScore";
 import UpSvg from "./assets/up.svg";
 import DownSvg from "./assets/down.svg";
 import TUSvg from "./assets/tu.svg";
+import getCurrentScore from "./utils/getCurrentScore";
+import getChangeSinceLastScore from "./utils/getChangeSinceLastScore";
+import getScoreRule from "./utils/getScoreRule";
+import parseLastUpdatedDay from "./utils/parseLastUpdatedDay";
 
 type CircularScoreDisplayProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,6 +70,11 @@ const CircularScoreProvidedStyles = {
   "& span": { margin: "2px 0 0 5px", fontSize: 14, color: "#d8d8d8", fontWeight: 500 },
 };
 
+const CircularScoreMinMaxStyles = {
+  fontWeight: "600",
+  fontSize: 20,
+};
+
 export const styles = {
   CircularScoreDisplay: CircularScoreDisplayStyles,
   CircularScoreInformation: CircularScoreInformationStyles,
@@ -75,6 +83,7 @@ export const styles = {
   CircularScoreText: CircularScoreTextStyles,
   CircularScoreUpdated: CircularScoreUpdatedStyles,
   CircularScoreProvided: CircularScoreProvidedStyles,
+  CircularScoreMinMax: CircularScoreMinMaxStyles,
 };
 
 const default_color = "#c5c5c5";
@@ -100,7 +109,10 @@ export default function CircularScoreDisplay(props: CircularScoreDisplayProps): 
     [fetchScores, display_token]
   );
 
-  const pie_chart_data = [{ value: credit_score || 0 }, { value: 850 - (credit_score || 0) }];
+  const pie_chart_data = [
+    { value: credit_score || 0, min_score: 300 },
+    { value: 850 - (credit_score || 0), max_score: 850 },
+  ];
 
   const chart_colors = [credit_score_rating ? credit_score_rating.color : "#0088FE", default_color];
   const last_updated_day = last_updated ? parseLastUpdatedDay(new Date(last_updated)) : -1;
@@ -141,6 +153,8 @@ export default function CircularScoreDisplay(props: CircularScoreDisplayProps): 
             startAngle={225}
             endAngle={-45}
             paddingAngle={5}
+            label={<ScoreMinMaxLabel className={classes.CircularScoreMinMax} />}
+            labelLine={false}
           >
             {pie_chart_data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={chart_colors[index]} />
@@ -149,5 +163,44 @@ export default function CircularScoreDisplay(props: CircularScoreDisplayProps): 
         </PieChart>
       </ResponsiveContainer>
     </div>
+  );
+}
+
+type ScoreMinMaxLabelProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  className: any;
+  cx?: number;
+  cy?: number;
+  max_score?: number;
+  min_score?: number;
+  middleRadius?: number;
+};
+
+function ScoreMinMaxLabel(props: ScoreMinMaxLabelProps) {
+  const { className, cx = 0, cy = 0, max_score, min_score, middleRadius = 0 } = props;
+
+  let x = 0;
+  let y = 0;
+  const radius = middleRadius;
+
+  if (max_score) {
+    x = cx + (radius * Math.sqrt(2)) / 2;
+    y = cy + (radius * Math.sqrt(2)) / 2;
+  } else if (min_score) {
+    x = cx - (radius * Math.sqrt(2)) / 2;
+    y = cy + (radius * Math.sqrt(2)) / 2;
+  }
+
+  return (
+    <text
+      textAnchor={max_score ? "end" : "start"}
+      x={x}
+      y={y}
+      dx={(max_score ? -1 : 1) * 15}
+      dy="10"
+      className={className}
+    >
+      {max_score || min_score}
+    </text>
   );
 }

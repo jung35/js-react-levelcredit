@@ -3,7 +3,10 @@ import { ScoreAPIDisplayToken, ScoreAPIScores, useScoreAPI } from "../useScoreAP
 import UpSvg from "./assets/up.svg";
 import DownSvg from "./assets/down.svg";
 import TUSvg from "./assets/tu.svg";
-import { getScoreRule, getCurrentScore, getChangeSinceLastScore, parseLastUpdatedDay } from "./ScoreAPIScore";
+import getCurrentScore from "./utils/getCurrentScore";
+import getChangeSinceLastScore from "./utils/getChangeSinceLastScore";
+import getScoreRule from "./utils/getScoreRule";
+import parseLastUpdatedDay from "./utils/parseLastUpdatedDay";
 
 const SimpleScoreDisplayStyles = {
   display: "flex",
