@@ -3,20 +3,21 @@ import { ScoreAPIDisplayToken, ScoreAPIScores, useScoreAPI } from "../useScoreAP
 import UpSvg from "./assets/up.svg";
 import DownSvg from "./assets/down.svg";
 import TUSvg from "./assets/tu.svg";
+import { getScoreRule, getCurrentScore, getChangeSinceLastScore, parseLastUpdatedDay } from "./ScoreAPIScore";
 
-export const SimpleScoreDisplayStyles = {
+const SimpleScoreDisplayStyles = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "flex-end",
   flexWrap: "wrap",
 };
 
-export const SimpleScoreDataStyles = {
+const SimpleScoreDataStyles = {
   display: "flex",
   alignItems: "flex-end",
 };
 
-export const SimpleScoreNumberStyles = {
+const SimpleScoreNumberStyles = {
   lineHeight: 0.9,
   color: "#000",
   fontStyle: "normal",
@@ -24,13 +25,13 @@ export const SimpleScoreNumberStyles = {
   fontSize: 36,
 };
 
-export const SimpleScoreTextStyles = {
+const SimpleScoreTextStyles = {
   color: "#666",
   fontSize: 18,
   marginLeft: 10,
 };
 
-export const SimpleScoreDifferenceStyles = {
+const SimpleScoreDifferenceStyles = {
   display: "flex",
   alignItems: "flex-end",
   "& img": { width: "auto", height: 16 },
@@ -39,7 +40,7 @@ export const SimpleScoreDifferenceStyles = {
   "&.negative": { color: "#ec654d", "& svg": { marginTop: -2 } },
 };
 
-export const SimpleScoreProvidedStyles = {
+const SimpleScoreProvidedStyles = {
   width: "100%",
   display: "flex",
   justifyContent: "space-between",
@@ -59,16 +60,14 @@ type SimpleScoreDisplayProps = {
   display_token: ScoreAPIDisplayToken;
 };
 
-type ScoreRules = { score: number; symbol: string; text: string };
-
-const score_rules: ScoreRules[] = [
-  { score: -1, symbol: "over", text: "Off the charts" },
-  { score: 850, symbol: "excellent", text: "Excellent" },
-  { score: 780, symbol: "very_good", text: "Very good" },
-  { score: 660, symbol: "good", text: "Good" },
-  { score: 600, symbol: "fair", text: "Fair" },
-  { score: 500, symbol: "bad", text: "Bad" },
-];
+export const styles = {
+  SimpleScoreDisplay: SimpleScoreDisplayStyles,
+  SimpleScoreData: SimpleScoreDataStyles,
+  SimpleScoreNumber: SimpleScoreNumberStyles,
+  SimpleScoreText: SimpleScoreTextStyles,
+  SimpleScoreDifference: SimpleScoreDifferenceStyles,
+  SimpleScoreProvided: SimpleScoreProvidedStyles,
+};
 
 export default function SimpleScoreDisplay(props: SimpleScoreDisplayProps): JSX.Element {
   const display_token = props.display_token;
@@ -78,8 +77,8 @@ export default function SimpleScoreDisplay(props: SimpleScoreDisplayProps): JSX.
   const [scores, setScores] = useState<ScoreAPIScores | null>(null);
 
   const credit_score = getCurrentScore(scores);
-  const credit_score_rating = getCurrentScoreRating(scores);
   const { diff, last_updated } = getChangeSinceLastScore(scores);
+  const credit_score_rating = getScoreRule(credit_score);
 
   useEffect(
     function () {
@@ -92,22 +91,13 @@ export default function SimpleScoreDisplay(props: SimpleScoreDisplayProps): JSX.
     [fetchScores, display_token]
   );
 
-  let last_updated_day = -1;
-
-  if (last_updated) {
-    const updated_date = +new Date(last_updated);
-    const today = +new Date();
-
-    const time_diff = today - updated_date;
-    const days_diff = Math.ceil(time_diff / (24 * 3600 * 1000));
-    last_updated_day = days_diff;
-  }
+  const last_updated_day = last_updated ? parseLastUpdatedDay(new Date(last_updated)) : -1;
 
   return (
     <div className={classes.SimpleScoreDisplay}>
       <div className={classes.SimpleScoreData}>
         <div className={classes.SimpleScoreNumber}>{credit_score}</div>
-        <div className={classes.SimpleScoreText}>{credit_score_rating}</div>
+        <div className={classes.SimpleScoreText}>{(credit_score_rating && credit_score_rating.text) || null}</div>
       </div>
 
       {diff !== 0 && (
@@ -128,48 +118,4 @@ export default function SimpleScoreDisplay(props: SimpleScoreDisplayProps): JSX.
       </div>
     </div>
   );
-}
-
-function getCurrentScore(score: ScoreAPIScores | null) {
-  return score ? score.current_score : null;
-}
-
-function getCurrentScoreRating(scores: ScoreAPIScores | null) {
-  let matching_rule = null;
-  const current_score = getCurrentScore(scores);
-
-  for (let i = 1; i < score_rules.length; i++) {
-    const score_rule = score_rules[i];
-
-    if (
-      current_score &&
-      current_score <= score_rule.score &&
-      (!matching_rule || matching_rule.score >= score_rule.score)
-    ) {
-      matching_rule = score_rule;
-    }
-  }
-
-  if (!matching_rule && current_score) {
-    matching_rule = score_rules[0];
-  }
-
-  return (matching_rule && matching_rule.text) || null;
-}
-
-function getChangeSinceLastScore(scores: ScoreAPIScores | null): { diff: number; last_updated?: string } {
-  if (!scores) {
-    return { diff: 0, last_updated: undefined };
-  }
-
-  const dates = Object.keys(scores.scores);
-
-  if (dates.length <= 1) {
-    return { diff: 0, last_updated: dates.length === 1 ? dates[0] : undefined };
-  }
-
-  const recent_score = parseInt(scores.scores[dates[0]]);
-  const previous_score = parseInt(scores.scores[dates[1]]);
-
-  return { diff: recent_score - previous_score, last_updated: dates[0] };
 }
