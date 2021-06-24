@@ -8,10 +8,6 @@ type ScoreAPIChartStyles = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   classes?: any;
   dataParseStyle?: ChartScoreParseStyle;
-  // XAxisStyles?: Styles;
-  // YAxisStyles?: Styles;
-  // LineStyles?: Styles;
-  // TooltipContentStyles?: Styles;
 };
 
 type ScoreAPIChartProps = ScoreAPIChartStyles & { display_token: ScoreAPIDisplayToken };
