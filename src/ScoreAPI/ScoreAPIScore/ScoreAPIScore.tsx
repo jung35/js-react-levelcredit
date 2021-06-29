@@ -1,10 +1,13 @@
 import React from "react";
 import injectSheet, { Styles } from "react-jss";
-import { ScoreAPIDisplayToken, ScoreAPIScores } from "../useScoreAPI";
+import { ScoreAPIDisplayToken } from "../useScoreAPI";
 import SimpleScoreDisplay, { styles as SimpleScoreDisplayStyles } from "./SimpleScoreDisplay";
 import CircularScoreDisplay, { styles as CircularScoreDisplayStyles } from "./CircularScoreDisplay";
 
-type ScoreAPIScoreDisplayStyle = "simple" | "pie";
+export const SCORE_SIMPLE_DISPLAY = "simple";
+export const SCORE_DONUT_DISPLAY = "donut";
+
+type ScoreAPIScoreDisplayStyle = "simple" | "donut";
 type ScoreAPIScoreStyles = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   classes?: any;
@@ -22,14 +25,14 @@ const styles: unknown = {
 
 function ScoreAPIScore(props: ScoreAPIScoreProps): JSX.Element {
   const classes = props.classes;
-  const display_style = props.dataDisplayStyle || "simple";
+  const display_style = props.dataDisplayStyle || SCORE_SIMPLE_DISPLAY;
   const display_token = props.display_token;
 
-  if (display_style === "simple") {
+  if (display_style === SCORE_SIMPLE_DISPLAY) {
     return <SimpleScoreDisplay classes={classes} display_token={display_token} />;
   }
 
-  if (display_style === "pie") {
+  if (display_style === SCORE_DONUT_DISPLAY) {
     return <CircularScoreDisplay classes={classes} display_token={display_token} />;
   }
 
