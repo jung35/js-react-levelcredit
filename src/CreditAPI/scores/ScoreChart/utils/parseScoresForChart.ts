@@ -1,4 +1,4 @@
-import { ScoreAPIScores, ScoreAPIScoresScores } from "../ScoreAPI/useScoreAPI";
+import { ScoresObj, ScoresObjScores } from "src/CreditAPI/scores/useScores";
 import moment from "moment";
 
 type ChartScoreData = { month: string; date?: string; score?: number };
@@ -11,7 +11,7 @@ type ChartMaxScore = number | null;
 const today = moment();
 
 export default function parseScoresForChart(
-  scores: ScoreAPIScores | null,
+  scores: ScoresObj | null,
   style: ChartScoreParseStyle
 ): ChartScoreParsedData {
   if (!scores?.scores) {
@@ -37,7 +37,7 @@ export default function parseScoresForChart(
   return [score_data, Math.min(...scores_list), Math.max(...scores_list)];
 }
 
-function parseStyle12Scores(scores: ScoreAPIScoresScores): Array<ChartScoreData> {
+function parseStyle12Scores(scores: ScoresObjScores): Array<ChartScoreData> {
   const scores_dates = Object.keys(scores).slice(0, 12);
   const scores_list = Object.values(scores)
     .slice(0, 12)
@@ -56,7 +56,7 @@ function parseStyle12Scores(scores: ScoreAPIScoresScores): Array<ChartScoreData>
   return scores_data;
 }
 
-function parseStyle11Months(scores: ScoreAPIScoresScores): Array<ChartScoreData> {
+function parseStyle11Months(scores: ScoresObjScores): Array<ChartScoreData> {
   const scores_dates = Object.keys(scores);
   const scores_monthyear = scores_dates.map(function (date_string) {
     return date_string.substring(2, 7); // '5678-12-34' => '78-12'

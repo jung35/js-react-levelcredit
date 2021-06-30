@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
-import parseScoresForChart, { ChartScoreParseStyle } from "../utils/parseScoresForChart";
-import { useScoreAPI, ScoreAPIScores, ScoreAPIDisplayToken } from "./useScoreAPI";
+import parseScoresForChart, { ChartScoreParseStyle } from "src/CreditAPI/scores/ScoreChart/utils/parseScoresForChart";
+import useScores, { ScoresObj, ScoreDisplayToken } from "src/CreditAPI/scores/useScores";
 import injectSheet, { Styles } from "react-jss";
 
 type ScoreAPIChartStyles = {
@@ -10,7 +10,7 @@ type ScoreAPIChartStyles = {
   dataParseStyle?: ChartScoreParseStyle;
 };
 
-type ScoreAPIChartProps = ScoreAPIChartStyles & { display_token: ScoreAPIDisplayToken };
+type ScoreAPIChartProps = ScoreAPIChartStyles & { display_token: ScoreDisplayToken };
 
 const rootStyles: React.CSSProperties = {};
 
@@ -44,11 +44,11 @@ const styles: unknown = {
   TooltipContentStyles: TooltipContentStyles,
 };
 
-function ScoreAPIChart(props: ScoreAPIChartProps): JSX.Element {
+function ScoreChart(props: ScoreAPIChartProps): JSX.Element {
   const display_token = props.display_token;
   const classes = props.classes;
-  const fetchScores = useScoreAPI();
-  const [scores, setScores] = useState<ScoreAPIScores | null>(null);
+  const fetchScores = useScores();
+  const [scores, setScores] = useState<ScoresObj | null>(null);
   const [chart_data, scores_min, scores_max] = parseScoresForChart(scores, props.dataParseStyle || "11-months-past");
 
   useEffect(
@@ -86,9 +86,9 @@ function ScoreAPIChart(props: ScoreAPIChartProps): JSX.Element {
   );
 }
 
-const fallbackHOC = injectSheet(styles as Styles)(ScoreAPIChart);
+const fallbackHOC = injectSheet(styles as Styles)(ScoreChart);
 
-export { fallbackHOC as ScoreAPIChart };
+export default fallbackHOC;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function AxisTick(props: any) {
