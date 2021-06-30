@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ScoreAPIDisplayToken, ScoreAPIScores, useScoreAPI } from "../useScoreAPI";
+import React from "react";
+import { ScoresObj } from "src/CreditAPI/scores/useScores";
 import UpSvg from "./assets/up.svg";
 import DownSvg from "./assets/down.svg";
 import TUSvg from "./assets/tu.svg";
@@ -60,7 +60,7 @@ const SimpleScoreProvidedStyles = {
 type SimpleScoreDisplayProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   classes?: any;
-  display_token: ScoreAPIDisplayToken;
+  scores: ScoresObj | null;
 };
 
 export const styles = {
@@ -73,26 +73,12 @@ export const styles = {
 };
 
 export default function SimpleScoreDisplay(props: SimpleScoreDisplayProps): JSX.Element {
-  const display_token = props.display_token;
   const classes = props.classes;
-
-  const fetchScores = useScoreAPI();
-  const [scores, setScores] = useState<ScoreAPIScores | null>(null);
+  const scores = props.scores;
 
   const credit_score = getCurrentScore(scores);
   const { diff, last_updated } = getChangeSinceLastScore(scores);
   const credit_score_rating = getScoreRule(credit_score);
-
-  useEffect(
-    function () {
-      (async function () {
-        const scores = await fetchScores(display_token);
-
-        setScores(scores);
-      })();
-    },
-    [fetchScores, display_token]
-  );
 
   const last_updated_day = last_updated ? parseLastUpdatedDay(new Date(last_updated)) : -1;
 

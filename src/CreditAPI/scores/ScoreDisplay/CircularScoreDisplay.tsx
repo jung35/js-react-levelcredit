@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ScoreAPIDisplayToken, ScoreAPIScores, useScoreAPI } from "../useScoreAPI";
+import React from "react";
+import { ScoresObj } from "src/CreditAPI/scores/useScores";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import UpSvg from "./assets/up.svg";
 import DownSvg from "./assets/down.svg";
@@ -12,7 +12,7 @@ import parseLastUpdatedDay from "./utils/parseLastUpdatedDay";
 type CircularScoreDisplayProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   classes?: any;
-  display_token: ScoreAPIDisplayToken;
+  scores: ScoresObj | null;
 };
 
 const CircularScoreDisplayStyles = {
@@ -90,24 +90,11 @@ const default_color = "#c5c5c5";
 
 export default function CircularScoreDisplay(props: CircularScoreDisplayProps): JSX.Element {
   const classes = props.classes;
-  const display_token = props.display_token;
+  const scores = props.scores;
 
-  const fetchScores = useScoreAPI();
-  const [scores, setScores] = useState<ScoreAPIScores | null>(null);
   const credit_score = getCurrentScore(scores);
   const credit_score_rating = getScoreRule(credit_score);
   const { diff, last_updated } = getChangeSinceLastScore(scores);
-
-  useEffect(
-    function () {
-      (async function () {
-        const scores = await fetchScores(display_token);
-
-        setScores(scores);
-      })();
-    },
-    [fetchScores, display_token]
-  );
 
   const pie_chart_data = [
     { value: credit_score || 0, min_score: 300 },

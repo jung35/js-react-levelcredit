@@ -1,4 +1,4 @@
-import { LevelCreditProviderProps } from "../LevelCreditProvider";
+import { LevelCreditProviderProps } from "src/LevelCreditProvider";
 
 export default function getLevelCreditApiURL(values: LevelCreditProviderProps): string {
   if (values.api_url) {

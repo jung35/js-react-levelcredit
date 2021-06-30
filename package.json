@@ -12,7 +12,6 @@
     "moment": "^2.29.0",
     "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8.0 || ^17.0.0",
-    "react-jss": "^8.6.1 || ^10.0.0",
     "recharts": "^2.0.9"
   },
   "publishConfig": {
@@ -51,6 +50,7 @@
     "prettier": "^2.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-jss": "^8.6.1",
     "regenerator-runtime": "^0.13.7",
     "rollup": "^2.44.0",
     "rollup-plugin-cleaner": "^1.0.0",
@@ -60,7 +60,6 @@
   "dependencies": {
     "@babel/runtime": "^7.13.10",
     "moment": "^2.29.1",
-    "react-jss": "^8.6.1",
     "recharts": "^2.0.9"
   }
 }

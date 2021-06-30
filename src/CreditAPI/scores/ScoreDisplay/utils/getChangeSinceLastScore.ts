@@ -1,8 +1,6 @@
-import { ScoreAPIScores } from "../../useScoreAPI";
+import { ScoresObj } from "src/CreditAPI/scores/useScores";
 
-export default function getChangeSinceLastScore(
-  scores: ScoreAPIScores | null
-): { diff: number; last_updated?: string } {
+export default function getChangeSinceLastScore(scores: ScoresObj | null): { diff: number; last_updated?: string } {
   if (!scores) {
     return { diff: 0, last_updated: undefined };
   }

@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import getLevelCreditApiURL from "./utils/getLevelCreditApiURL";
+import getLevelCreditApiURL from "src/utils/getLevelCreditApiURL";
 
 type LevelCreditEnv = "development" | "sandbox" | "production";
 
@@ -9,7 +9,7 @@ type LevelCreditSettings = { api_url: string };
 
 const LevelCreditContext = createContext<LevelCreditProviderProps | null>(null);
 
-export function LevelCreditProvider(props: LevelCreditProviderProps): JSX.Element {
+export default function LevelCreditProvider(props: LevelCreditProviderProps): JSX.Element {
   const { children, ...rest } = props;
 
   return <LevelCreditContext.Provider value={rest}>{children}</LevelCreditContext.Provider>;
