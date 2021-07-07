@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from "react";
-import injectSheet, { Styles } from "react-jss";
-import useScores, { ScoreDisplayToken, ScoresObj } from "src/CreditAPI/scores/useScores";
-import SimpleScoreDisplay, { styles as SimpleScoreDisplayStyles } from "./SimpleScoreDisplay";
-import CircularScoreDisplay, { styles as CircularScoreDisplayStyles } from "./CircularScoreDisplay";
+import useScores, { ScoreDisplayToken, ScoresObj } from "src/CreditAPI/score/useScore";
+import SimpleScoreDisplay, { SimpleScoreDisplayClassNames } from "./SimpleScoreDisplay";
+import CircularScoreDisplay, { CircularScoreDisplayClassNames } from "./CircularScoreDisplay";
 
 export const SCORE_SIMPLE_DISPLAY = "simple";
 export const SCORE_DONUT_DISPLAY = "donut";
 
-type ScoreAPIScoreDisplayStyle = "simple" | "donut";
-type ScoreAPIScoreStyles = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  classes?: any;
+type ScoreDisplayTypeSimple = {
+  dataDisplayStyle: "simple";
+  classes?: SimpleScoreDisplayClassNames;
 };
 
-type ScoreAPIScoreProps = ScoreAPIScoreStyles & {
+type ScoreDisplayTypeDonu = {
+  dataDisplayStyle: "donut";
+  classes?: CircularScoreDisplayClassNames;
+};
+
+type ScoreAPIScoreProps = {
   display_token: ScoreDisplayToken;
-  dataDisplayStyle?: ScoreAPIScoreDisplayStyle;
-};
-
-const styles: unknown = {
-  ...SimpleScoreDisplayStyles,
-  ...CircularScoreDisplayStyles,
-};
+} & (ScoreDisplayTypeSimple | ScoreDisplayTypeDonu);
 
 function ScoreDisplay(props: ScoreAPIScoreProps): JSX.Element {
   const classes = props.classes;
@@ -50,9 +47,7 @@ function ScoreDisplay(props: ScoreAPIScoreProps): JSX.Element {
     return <CircularScoreDisplay classes={classes} scores={scores} />;
   }
 
-  return <div className={classes.root}></div>;
+  return <div></div>;
 }
 
-const fallbackHOC = injectSheet(styles as Styles)(ScoreDisplay);
-
-export default fallbackHOC;
+export default ScoreDisplay;

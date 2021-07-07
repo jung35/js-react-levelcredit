@@ -6,9 +6,11 @@ Major version update because there are breaking changes with no backwards compat
 
 * Added new component to show single credit score: `<ScoreDisplay />`
 * Removed required dependency for `react-jss`
+* Added new hook for insights feature: `useInsights()`
+* Added new component for insights feature: `<AccountSummary />`
 
 ### BREAKING
-* Renamed `ScoreAPIChart` to `ScoreChart`
-* Renamed `useScoreAPI` to `useScores`
-* Changed how styles are applied to components (i.e. `<ScoreAPIChart />`)
-  * Checkout the [demo](https://github.com/levelcredit/js-app-component-demo/blob/master/src/ScoreAPI/ChartDemo.js) to see an example
+* Renamed `<ScoreAPIChart />` to `<ScoreChart />`
+* Renamed `useScoreAPI()` to `useScore()`
+* Changed how styles are applied to components (i.e. `<ScoreChart />`)
+  * Checkout the [demo](https://github.com/levelcredit/js-app-component-demo/blob/master/src/CreditAPI/score/ChartDemo.js) to see an example

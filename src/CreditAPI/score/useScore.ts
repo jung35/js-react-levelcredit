@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useLevelCredit } from "src/LevelCreditProvider";
+import { CreditAPIError } from "../types";
 
 export type ScoreDisplayToken = string;
 type FetchUserScores = (score_display_token: ScoreDisplayToken) => Promise<ScoresObj>;
@@ -9,12 +10,10 @@ export type ScoresObj = {
   change_since_first: number;
   scores: ScoresObjScores;
   next_update: string;
-  messages: Array<ScoresObjError>;
+  messages: Array<CreditAPIError>;
 };
 
 export type ScoresObjScores = { [key: string]: string };
-type ScoresObjError = { code: number; message: string; priority: ScoresObjErrorPriority };
-type ScoresObjErrorPriority = "high" | "medium" | "low";
 
 export default function useScores(): FetchUserScores {
   const { api_url } = useLevelCredit();

@@ -3,8 +3,11 @@ import "whatwg-fetch";
 
 import LevelCreditProvider from "src/LevelCreditProvider";
 
-import useScores from "src/CreditAPI/scores/useScores";
-import ScoreChart from "src/CreditAPI/scores/ScoreChart/ScoreChart";
-import ScoreDisplay from "src/CreditAPI/scores/ScoreDisplay/ScoreDisplay";
+import useScore from "src/CreditAPI/score/useScore";
+import ScoreChart from "src/CreditAPI/score/ScoreChart/ScoreChart";
+import ScoreDisplay from "src/CreditAPI/score/ScoreDisplay/ScoreDisplay";
 
-export { LevelCreditProvider, useScores, ScoreChart, ScoreDisplay };
+import useInsights from "./CreditAPI/insights/useInsights";
+import AccountSummary from "./CreditAPI/insights/AccountSummary/AccountSummary";
+
+export { LevelCreditProvider, useScore, ScoreChart, ScoreDisplay, useInsights, AccountSummary };

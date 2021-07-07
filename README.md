@@ -109,7 +109,7 @@ Creates chart using `recharts` displaying user's credit score history.
 | classes | `JSS Classes` | `{}` |
 
 #### JSS Classes
-`XAxisStyles`, `YAxisStyles`, `LineStyles`, `TooltipContentStyles`
+`XAxis`, `YAxis`, `Line`, `TooltipContent`
 
 ---
 ### `useScores()`

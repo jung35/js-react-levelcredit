@@ -1,4 +1,4 @@
-import { ScoresObj, ScoresObjScores } from "src/CreditAPI/scores/useScores";
+import { ScoresObj, ScoresObjScores } from "src/CreditAPI/score/useScore";
 import moment from "moment";
 
 type ChartScoreData = { month: string; date?: string; score?: number };

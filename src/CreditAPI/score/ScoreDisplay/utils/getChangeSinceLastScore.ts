@@ -1,7 +1,7 @@
-import { ScoresObj } from "src/CreditAPI/scores/useScores";
+import { ScoresObj } from "src/CreditAPI/score/useScore";
 
 export default function getChangeSinceLastScore(scores: ScoresObj | null): { diff: number; last_updated?: string } {
-  if (!scores) {
+  if (!scores?.scores) {
     return { diff: 0, last_updated: undefined };
   }
 
