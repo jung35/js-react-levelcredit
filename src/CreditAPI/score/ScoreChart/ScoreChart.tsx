@@ -1,50 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
-import parseScoresForChart, { ChartScoreParseStyle } from "src/CreditAPI/scores/ScoreChart/utils/parseScoresForChart";
-import useScores, { ScoresObj, ScoreDisplayToken } from "src/CreditAPI/scores/useScores";
+import parseScoresForChart, { ChartScoreParseStyle } from "src/CreditAPI/score/ScoreChart/utils/parseScoresForChart";
+import useScores, { ScoresObj, ScoreDisplayToken } from "src/CreditAPI/score/useScore";
 import injectSheet, { Styles } from "react-jss";
 
-type ScoreAPIChartStyles = {
+type ScoreChartProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   classes?: any;
+  display_token: ScoreDisplayToken;
   dataParseStyle?: ChartScoreParseStyle;
 };
 
-type ScoreAPIChartProps = ScoreAPIChartStyles & { display_token: ScoreDisplayToken };
-
-const rootStyles: React.CSSProperties = {};
-
-const XAxisStyles = {
-  fontSize: 12,
-  fill: "#666",
-  textAnchor: "end",
-  x: 0,
-  y: 0,
-  transform: "rotate(-35deg) translate(0, 15px)",
-};
-
-const YAxisStyles = { fontSize: 12, fill: "#666", textAnchor: "end", x: 0, y: 0, transform: "translate(0, 5px)" };
-
-const LineStyles = { "& path": { stroke: "#666" }, "& circle": { stroke: "#666" } };
-
-const TooltipContentStyles = {
-  fontSize: 12,
-  padding: 7,
-  backgroundColor: "#fff",
-  border: "1px solid #777",
-  "& p.label": { fontWeight: "bold", fontSize: 13 },
-  "& p": { margin: 0 },
-};
-
 const styles: unknown = {
-  rootStyles: rootStyles,
-  XAxisStyles: XAxisStyles,
-  YAxisStyles: YAxisStyles,
-  LineStyles: LineStyles,
-  TooltipContentStyles: TooltipContentStyles,
+  root: {},
+  XAxis: { fontSize: 12, fill: "#666", textAnchor: "end", x: 0, y: 0, transform: "rotate(-35deg) translate(0, 15px)" },
+  YAxis: { fontSize: 12, fill: "#666", textAnchor: "end", x: 0, y: 0, transform: "translate(0, 5px)" },
+  Line: { "& path": { stroke: "#666" }, "& circle": { stroke: "#666" } },
+  TooltipContent: {
+    fontSize: 12,
+    padding: 7,
+    backgroundColor: "#fff",
+    border: "1px solid #777",
+    "& p.label": { fontWeight: "bold", fontSize: 13 },
+    "& p": { margin: 0 },
+  },
 };
 
-function ScoreChart(props: ScoreAPIChartProps): JSX.Element {
+function ScoreChart(props: ScoreChartProps): JSX.Element {
   const display_token = props.display_token;
   const classes = props.classes;
   const fetchScores = useScores();
@@ -66,7 +48,7 @@ function ScoreChart(props: ScoreAPIChartProps): JSX.Element {
   const chart_max = scores_max ? Math.min(scores_max + 10 - (scores_max % 10), 850) : 0;
 
   return (
-    <div className={classes.rootStyles}>
+    <div className={classes.root}>
       <ResponsiveContainer aspect={2.33} minHeight={100}>
         <LineChart data={chart_data} margin={{ top: 10, right: 10 }}>
           <CartesianGrid strokeDasharray="4 1 2" vertical={false} />
@@ -75,11 +57,11 @@ function ScoreChart(props: ScoreAPIChartProps): JSX.Element {
             interval={0}
             height={60}
             tickLine={false}
-            tick={<AxisTick className={classes.XAxisStyles} />}
+            tick={<AxisTick className={classes.XAxis} />}
           />
-          <YAxis domain={[chart_min, chart_max]} tickLine={false} tick={<AxisTick className={classes.YAxisStyles} />} />
-          <Tooltip content={<TooltipContent className={classes.TooltipContentStyles} />} />
-          <Line connectNulls type="monotone" dataKey="score" className={classes.LineStyles} />
+          <YAxis domain={[chart_min, chart_max]} tickLine={false} tick={<AxisTick className={classes.YAxis} />} />
+          <Tooltip content={<TooltipContent className={classes.TooltipContent} />} />
+          <Line connectNulls type="monotone" dataKey="score" className={classes.Line} />
         </LineChart>
       </ResponsiveContainer>
     </div>

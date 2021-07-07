@@ -1,5 +1,5 @@
 import React from "react";
-import { ScoresObj } from "src/CreditAPI/scores/useScores";
+import { ScoresObj } from "src/CreditAPI/score/useScore";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import UpSvg from "./assets/up.svg";
 import DownSvg from "./assets/down.svg";
@@ -8,87 +8,82 @@ import getCurrentScore from "./utils/getCurrentScore";
 import getChangeSinceLastScore from "./utils/getChangeSinceLastScore";
 import getScoreRule from "./utils/getScoreRule";
 import parseLastUpdatedDay from "./utils/parseLastUpdatedDay";
+import injectSheet, { Styles } from "react-jss";
 
 type CircularScoreDisplayProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  classes?: any;
+  classes: CircularScoreDisplayClassNames;
   scores: ScoresObj | null;
 };
 
-const CircularScoreDisplayStyles = {
-  position: "relative",
+export type CircularScoreDisplayClassNames = {
+  CircularScoreDisplay?: string;
+  CircularScoreInformation?: string;
+  CircularScoreDifference?: string;
+  CircularScoreNumber?: string;
+  CircularScoreText?: string;
+  CircularScoreUpdated?: string;
+  CircularScoreProvided?: string;
+  CircularScoreMinMax?: string;
 };
 
-const CircularScoreInformationStyles = {
-  position: "absolute",
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  lineHeight: 1,
-  flexDirection: "column",
-};
-
-const CircularScoreNumberStyles = {
-  lineHeight: 1,
-  color: "#000",
-  fontStyle: "normal",
-  fontWeight: 600,
-  fontSize: 38,
-};
-
-const CircularScoreDifferenceStyles = {
-  display: "flex",
-  alignItems: "center",
-  marginBottom: 5,
-  "& img": { width: "auto", height: 16 },
-  "& span": { whiteSpace: "nowrap", lineHeight: 1, fontSize: 18, marginLeft: 5 },
-  "&.positive": { color: "#21cc6f" },
-  "&.negative": { color: "#ec654d", "& svg": { marginTop: -2 } },
-};
-
-const CircularScoreTextStyles = {
-  color: "#666",
-  fontSize: 18,
-  textTransform: "uppercase",
-  marginTop: 5,
-};
-
-const CircularScoreUpdatedStyles = {
-  margin: { top: 15, bottom: 15 },
-  color: "#999",
-  fontSize: 14,
-};
-
-const CircularScoreProvidedStyles = {
-  display: "flex",
-  alignItems: "center",
-  "& img": { width: 20, height: "auto" },
-  "& span": { margin: "2px 0 0 5px", fontSize: 14, color: "#d8d8d8", fontWeight: 500 },
-};
-
-const CircularScoreMinMaxStyles = {
-  fontWeight: "600",
-  fontSize: 20,
-};
-
-export const styles = {
-  CircularScoreDisplay: CircularScoreDisplayStyles,
-  CircularScoreInformation: CircularScoreInformationStyles,
-  CircularScoreDifference: CircularScoreDifferenceStyles,
-  CircularScoreNumber: CircularScoreNumberStyles,
-  CircularScoreText: CircularScoreTextStyles,
-  CircularScoreUpdated: CircularScoreUpdatedStyles,
-  CircularScoreProvided: CircularScoreProvidedStyles,
-  CircularScoreMinMax: CircularScoreMinMaxStyles,
+const styles = {
+  CircularScoreDisplay: {
+    position: "relative",
+  },
+  CircularScoreInformation: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    lineHeight: 1,
+    flexDirection: "column",
+  },
+  CircularScoreDifference: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: 5,
+    "& img": { width: "auto", height: 16 },
+    "& span": { whiteSpace: "nowrap", lineHeight: 1, fontSize: 18, marginLeft: 5 },
+    "&.positive": { color: "#21cc6f" },
+    "&.negative": { color: "#ec654d", "& svg": { marginTop: -2 } },
+  },
+  CircularScoreNumber: {
+    lineHeight: 1,
+    color: "#000",
+    fontStyle: "normal",
+    fontWeight: 600,
+    fontSize: 38,
+  },
+  CircularScoreText: {
+    color: "#666",
+    fontSize: 18,
+    textTransform: "uppercase",
+    marginTop: 5,
+  },
+  CircularScoreUpdated: {
+    margin: { top: 15, bottom: 15 },
+    color: "#999",
+    fontSize: 14,
+  },
+  CircularScoreProvided: {
+    display: "flex",
+    alignItems: "center",
+    "& img": { width: 20, height: "auto" },
+    "& span": { margin: "2px 0 0 5px", fontSize: 14, color: "#d8d8d8", fontWeight: 500 },
+  },
+  CircularScoreMinMax: {
+    fontWeight: "600",
+    fontSize: 20,
+  },
 };
 
 const default_color = "#c5c5c5";
 
-export default function CircularScoreDisplay(props: CircularScoreDisplayProps): JSX.Element {
+export function CircularScoreDisplay(props: CircularScoreDisplayProps): JSX.Element {
   const classes = props.classes;
   const scores = props.scores;
 
@@ -191,3 +186,5 @@ function ScoreMinMaxLabel(props: ScoreMinMaxLabelProps) {
     </text>
   );
 }
+
+export default injectSheet(styles as Styles)(CircularScoreDisplay);
