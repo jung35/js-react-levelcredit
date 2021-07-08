@@ -5,7 +5,7 @@ import { CreditAPIError } from "../types";
 type FetchUserInsights = (insight_display_token: InsightsDisplayToken) => Promise<InsightsObj>;
 export type InsightsDisplayToken = string;
 export type InsightsObj = {
-  account_balance: InsightsAccountBalance;
+  account_balances: InsightsAccountBalance;
   total_monthly_payments: number;
   total_accounts: InsightsTotalAccount;
   total_public_records: number;

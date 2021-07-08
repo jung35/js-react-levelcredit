@@ -1,4 +1,3 @@
-// @flow
 import React from "react";
 import injectSheet, { Styles } from "react-jss";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
@@ -46,6 +45,6 @@ function AccountCount(props: AccountCountProps): JSX.Element {
   );
 }
 
-const styles = {};
+const styles = { AccountCount: {} };
 
 export default injectSheet(styles as Styles)(AccountCount);
