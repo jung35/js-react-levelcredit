@@ -2,27 +2,27 @@ import React, { useEffect, useState } from "react";
 import injectSheet, { Styles } from "react-jss";
 import useInsights, { InsightsDisplayToken, InsightsObj } from "../useInsights";
 
-type CreditUtilizationProps = {
+type HardInquiryProps = {
   classes: {
-    CreditUtilization?: string;
-    UtilizationValue?: string;
-    UtilizationRating?: string;
+    HardInquiry?: string;
+    HardInquiryValue?: string;
+    HardInquiryRating?: string;
   };
 
   display_token: InsightsDisplayToken;
 };
 
-type UtilizationRatingGroup = { min: number; max?: number; label: string; color: string };
+type HardInquiryRatingGroup = { min?: number; max?: number; label: string; color: string };
 
-const rating_groups: UtilizationRatingGroup[] = [
-  { min: 75, label: "75 +", color: "#bc2026" },
-  { min: 50, max: 75, label: "50 - 74", color: "#f68e1f" },
-  { min: 30, max: 50, label: "30 - 49", color: "#ffd226" },
-  { min: 10, max: 30, label: "10 - 29", color: "#7dbb42" },
-  { min: 0, max: 10, label: "0 - 9", color: "#0f9246" },
+const rating_groups: HardInquiryRatingGroup[] = [
+  { min: 9, label: "9 +", color: "#bc2026" },
+  { min: 5, max: 9, label: "5 - 8", color: "#f68e1f" },
+  { min: 3, max: 5, label: "3 - 4", color: "#ffd226" },
+  { min: 1, max: 3, label: "1 - 2", color: "#7dbb42" },
+  { max: 1, label: "0", color: "#0f9246" },
 ];
 
-function CreditUtilization(props: CreditUtilizationProps): JSX.Element {
+function HardInquiry(props: HardInquiryProps): JSX.Element {
   const classes = props.classes;
   const display_token = props.display_token;
 
@@ -40,15 +40,15 @@ function CreditUtilization(props: CreditUtilizationProps): JSX.Element {
     [fetchInsights, display_token]
   );
 
-  const utilization = insights && insights.utilization >= 0 ? insights.utilization : NaN;
+  const inquiries = insights && insights.total_inquiries >= 0 ? insights.total_inquiries : NaN;
 
   return (
-    <div className={classes.CreditUtilization}>
-      {!isNaN(utilization) ? <div className={classes.UtilizationValue}>{utilization}%</div> : ""}
-      <div className={classes.UtilizationRating}>
-        {rating_groups.map(function (group: UtilizationRatingGroup, i) {
-          const is_under_max = !group.max || utilization < group.max;
-          const is_over_min = utilization >= group.min;
+    <div className={classes.HardInquiry}>
+      {!isNaN(inquiries) ? <div className={classes.HardInquiryValue}>{inquiries}</div> : ""}
+      <div className={classes.HardInquiryRating}>
+        {rating_groups.map(function (group: HardInquiryRatingGroup, i) {
+          const is_under_max = !group.max || inquiries < group.max;
+          const is_over_min = !group.min || inquiries >= group.min;
 
           const is_selected = is_under_max && is_over_min;
 
@@ -74,17 +74,17 @@ for (let i = 0; i < rating_groups.length; i++) {
 }
 
 const styles = {
-  CreditUtilization: {
+  HardInquiry: {
     width: 270,
     maxWidth: "100%",
     margin: [0, "auto"],
   },
-  UtilizationValue: {
+  HardInquiryValue: {
     fontSize: 70,
     lineHeight: 1,
     margin: [0, 0, 15],
   },
-  UtilizationRating: {
+  HardInquiryRating: {
     display: "flex",
 
     "& > div": {
@@ -110,4 +110,4 @@ const styles = {
   },
 };
 
-export default injectSheet(styles as Styles)(CreditUtilization);
+export default injectSheet(styles as Styles)(HardInquiry);
