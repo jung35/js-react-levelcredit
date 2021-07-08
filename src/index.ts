@@ -11,6 +11,7 @@ import useInsights from "./CreditAPI/insights/useInsights";
 import AccountSummary from "./CreditAPI/insights/AccountSummary/AccountSummary";
 import CreditBalance from "./CreditAPI/insights/CreditBalance/CreditBalance";
 import CreditUtilization from "./CreditAPI/insights/CreditUtilization/CreditUtilization";
+import HardInquiry from "./CreditAPI/insights/HardInquiry/HardInquiry";
 
 export {
   LevelCreditProvider,
@@ -21,4 +22,5 @@ export {
   AccountSummary,
   CreditBalance,
   CreditUtilization,
+  HardInquiry,
 };
