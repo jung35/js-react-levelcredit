@@ -7,7 +7,7 @@ Major version update because there are breaking changes with no backwards compat
 * Added new component to show single credit score: `<ScoreDisplay />`
 * Removed required dependency for `react-jss`
 * Added new hook for insights feature: `useInsights()`
-* Added new components for insights feature: `<AccountSummary />`, `<CreditBalance />`
+* Added new components for insights feature: `<AccountSummary />`, `<CreditBalance />`, `<CreditUtilization />`
 
 ### BREAKING
 * Renamed `<ScoreAPIChart />` to `<ScoreChart />`
