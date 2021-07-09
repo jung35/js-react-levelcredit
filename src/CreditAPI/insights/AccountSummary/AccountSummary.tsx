@@ -4,7 +4,12 @@ import useInsights, { InsightsDisplayToken, InsightsObj } from "src/CreditAPI/in
 import AccountCount from "./AccountCount";
 
 type AccountSummaryProps = {
-  classes: { AccountSummary?: string; SummaryItem?: string; SummaryValue?: string; SummaryLabel?: string };
+  classes: {
+    AccountSummary?: string;
+    SummaryItem?: string;
+    SummaryValue?: string;
+    SummaryLabel?: string;
+  };
   display_token: InsightsDisplayToken;
 };
 

@@ -12,7 +12,8 @@ Major version update because there are breaking changes with no backwards compat
   * `<CreditBalance />`
   * `<CreditUtilization />`
   * `<HardInquiry />`
-  * `<LoanSummary />`
+  * `<LoanType />`
+  * `<AccountStatus />`
 
 ### BREAKING
 * Renamed `<ScoreAPIChart />` to `<ScoreChart />`
