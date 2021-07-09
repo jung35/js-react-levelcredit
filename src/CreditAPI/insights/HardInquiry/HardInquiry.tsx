@@ -80,6 +80,7 @@ const styles = {
     margin: [0, "auto"],
   },
   HardInquiryValue: {
+    textAlign: "center",
     fontSize: 70,
     lineHeight: 1,
     margin: [0, 0, 15],
