@@ -90,7 +90,6 @@ const styles = {
   },
   SummaryLabel: {
     fontSize: 14,
-    fontStyle: "italic",
     lineHeight: 1,
     color: "#979797",
     margin: { top: 10, bottom: 5 },

@@ -73,7 +73,7 @@ function CreditBalance(props: CreditBalanceProps): JSX.Element {
         </div>
         <div className={classes.CountItem}>
           <div className={classes.CountValue}>{open_collection_accounts}</div>
-          <div className={classes.CountLabel}>Currently in Collections</div>
+          <div className={classes.CountLabel}>Accounts in Collection</div>
         </div>
       </div>
     </div>
