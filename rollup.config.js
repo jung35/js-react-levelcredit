@@ -8,7 +8,7 @@ import image from "@rollup/plugin-image";
 const config = {
   input: "src/index.ts",
   external: ["react", "react-dom", "recharts", "moment"],
-  output: { dir: "dist", format: "esm" },
+  output: { dir: "dist", format: "cjs", preserveModules: true, preserveModulesRoot: "src", exports: "named" },
   plugins: [
     cleaner({ targets: ["./dist/"] }),
     image(),

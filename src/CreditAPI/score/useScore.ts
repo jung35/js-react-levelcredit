@@ -13,7 +13,9 @@ export type ScoresObj = {
   messages: Array<CreditAPIError>;
 };
 
-export type ScoresObjScores = { [key: string]: string };
+export type ScoresObjScores = {
+  [key: string]: string;
+};
 
 export default function useScores(): FetchUserScores {
   const { api_url } = useLevelCredit();

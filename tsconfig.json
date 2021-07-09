@@ -12,6 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "declarationDir": "dist",
+    "outDir": "dist",
     "baseUrl": ".",
     "paths": { "src": ["src"] }
   },
