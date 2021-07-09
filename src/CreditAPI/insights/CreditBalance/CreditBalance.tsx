@@ -86,8 +86,8 @@ function toCurrency(num: number) {
 
 const styles = {
   CreditBalance: {
-    width: 400,
-    maxWidth: "100%",
+    width: "100%",
+    maxWidth: 400,
     margin: [0, "auto"],
   },
   BalanceList: {

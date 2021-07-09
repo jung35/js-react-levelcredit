@@ -75,8 +75,8 @@ for (let i = 0; i < rating_groups.length; i++) {
 
 const styles = {
   HardInquiry: {
-    width: 270,
-    maxWidth: "100%",
+    width: "100%",
+    maxWidth: 270,
     margin: [0, "auto"],
   },
   HardInquiryValue: {
