@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import injectSheet, { Styles } from "react-jss";
-import useInsights, { InsightsDisplayToken, InsightsObj } from "../useInsights";
+import { CreditDisplayToken } from "src/CreditAPI/types";
+import useInsights, { InsightsObj } from "../useInsights";
 
 type LoanTypeProps = {
   classes: {
@@ -12,8 +13,7 @@ type LoanTypeProps = {
   };
 
   show_dots_percent?: boolean;
-
-  display_token: InsightsDisplayToken;
+  display_token: CreditDisplayToken;
 };
 
 type LoanTypeID = "revolving" | "installment" | "mortgage";

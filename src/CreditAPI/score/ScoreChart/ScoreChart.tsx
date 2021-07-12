@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import parseScoresForChart, { ChartScoreParseStyle } from "src/CreditAPI/score/ScoreChart/utils/parseScoresForChart";
-import useScores, { ScoresObj, ScoreDisplayToken } from "src/CreditAPI/score/useScore";
+import useScores, { ScoresObj } from "src/CreditAPI/score/useScore";
 import injectSheet, { Styles } from "react-jss";
+import { CreditDisplayToken } from "src/CreditAPI/types";
 
 type ScoreChartProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  classes?: any;
-  display_token: ScoreDisplayToken;
+  classes: {
+    ScoreChart?: string;
+    XAxis?: string;
+    YAxis?: string;
+    Line?: string;
+    TooltipContent?: string;
+  };
+  display_token: CreditDisplayToken;
   dataParseStyle?: ChartScoreParseStyle;
 };
 
 const styles: unknown = {
-  root: {},
+  ScoreChart: {},
   XAxis: { fontSize: 12, fill: "#666", textAnchor: "end", x: 0, y: 0, transform: "rotate(-35deg) translate(0, 15px)" },
   YAxis: { fontSize: 12, fill: "#666", textAnchor: "end", x: 0, y: 0, transform: "translate(0, 5px)" },
   Line: { "& path": { stroke: "#666" }, "& circle": { stroke: "#666" } },
@@ -48,7 +54,7 @@ function ScoreChart(props: ScoreChartProps): JSX.Element {
   const chart_max = scores_max ? Math.min(scores_max + 10 - (scores_max % 10), 850) : 0;
 
   return (
-    <div className={classes.root}>
+    <div className={classes.ScoreChart}>
       <ResponsiveContainer aspect={2.33} minHeight={100}>
         <LineChart data={chart_data} margin={{ top: 10, right: 10 }}>
           <CartesianGrid strokeDasharray="4 1 2" vertical={false} />

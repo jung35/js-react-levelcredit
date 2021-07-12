@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import injectSheet, { Styles } from "react-jss";
-import useInsights, { InsightsDisplayToken, InsightsObj } from "src/CreditAPI/insights/useInsights";
+import useInsights, { InsightsObj } from "src/CreditAPI/insights/useInsights";
+import { CreditDisplayToken } from "src/CreditAPI/types";
 import AccountCount from "./AccountCount";
 
 type AccountSummaryProps = {
@@ -10,7 +11,7 @@ type AccountSummaryProps = {
     SummaryValue?: string;
     SummaryLabel?: string;
   };
-  display_token: InsightsDisplayToken;
+  display_token: CreditDisplayToken;
 };
 
 function AccountSummary(props: AccountSummaryProps) {

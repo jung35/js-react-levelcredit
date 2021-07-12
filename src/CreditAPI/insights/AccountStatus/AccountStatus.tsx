@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import injectSheet, { Styles } from "react-jss";
-import useInsights, { InsightsDisplayToken, InsightsObj } from "../useInsights";
+import { CreditDisplayToken } from "src/CreditAPI/types";
+import useInsights, { InsightsObj } from "../useInsights";
 
 type AccountStatusProps = {
   classes: {
     AccountStatus?: string;
   };
 
-  display_token: InsightsDisplayToken;
+  display_token: CreditDisplayToken;
 };
 
 function AccountStatus(props: AccountStatusProps): JSX.Element | null {

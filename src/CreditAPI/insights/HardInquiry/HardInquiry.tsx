@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import injectSheet, { Styles } from "react-jss";
-import useInsights, { InsightsDisplayToken, InsightsObj } from "../useInsights";
+import { CreditDisplayToken } from "src/CreditAPI/types";
+import useInsights, { InsightsObj } from "../useInsights";
 
 type HardInquiryProps = {
   classes: {
@@ -9,7 +10,7 @@ type HardInquiryProps = {
     HardInquiryRating?: string;
   };
 
-  display_token: InsightsDisplayToken;
+  display_token: CreditDisplayToken;
 };
 
 type HardInquiryRatingGroup = { min?: number; max?: number; label: string; color: string };
