@@ -96,7 +96,7 @@ function LoanType(props: LoanTypeProps): JSX.Element {
         <div className={classes.LoanTypePercents}>
           {loan_summary_types.map(function (loan_type) {
             const percent = percents[loan_type.id];
-            if (typeof percent !== "number" || percent <= 1) {
+            if (typeof percent !== "number" || percent <= 1 || isNaN(percent)) {
               return null;
             }
 
