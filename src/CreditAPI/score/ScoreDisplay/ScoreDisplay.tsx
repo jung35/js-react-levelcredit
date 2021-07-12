@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import useScores, { ScoreDisplayToken, ScoresObj } from "src/CreditAPI/score/useScore";
+import useScores, { ScoresObj } from "src/CreditAPI/score/useScore";
 import SimpleScoreDisplay, { SimpleScoreDisplayClassNames } from "./SimpleScoreDisplay";
 import CircularScoreDisplay, { CircularScoreDisplayClassNames } from "./CircularScoreDisplay";
+import { CreditDisplayToken } from "src/CreditAPI/types";
 
 export const SCORE_SIMPLE_DISPLAY = "simple";
 export const SCORE_DONUT_DISPLAY = "donut";
@@ -17,7 +18,7 @@ type ScoreDisplayTypeDonu = {
 };
 
 type ScoreAPIScoreProps = {
-  display_token: ScoreDisplayToken;
+  display_token: CreditDisplayToken;
 } & (ScoreDisplayTypeSimple | ScoreDisplayTypeDonu);
 
 function ScoreDisplay(props: ScoreAPIScoreProps): JSX.Element {
