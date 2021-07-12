@@ -79,7 +79,7 @@ function LoanType(props: LoanTypeProps): JSX.Element {
               key={loan_type.id}
               className={`${classes.LoanTypeType} ${typeof percent === "number" && percent > 0 ? loan_type.id : ""}`}
             >
-              {percent ? <span>{percent}%</span> : null}
+              <span>{percent || 0}%</span>
               {loan_type.label}
             </div>
           );
