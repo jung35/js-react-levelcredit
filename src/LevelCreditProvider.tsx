@@ -1,24 +1,31 @@
 import React, { createContext, useContext } from "react";
-import getLevelCreditApiURL from "src/utils/getLevelCreditApiURL";
+import { APIFetchSettings } from "@levelcredit/js-lib-api/types";
 
 type LevelCreditEnv = "development" | "sandbox" | "production";
 
-export type LevelCreditProviderProps = { env?: LevelCreditEnv; api_url?: string; children?: JSX.Element };
+export type LevelCreditProviderProps = { env?: LevelCreditEnv; api_url?: string };
 
-type LevelCreditSettings = { api_url: string };
+const LevelCreditContext = createContext<LevelCreditProviderProps>({});
 
-const LevelCreditContext = createContext<LevelCreditProviderProps | null>(null);
-
-export default function LevelCreditProvider(props: LevelCreditProviderProps): JSX.Element {
+export default function LevelCreditProvider(props: LevelCreditProviderProps & { children?: JSX.Element }): JSX.Element {
   const { children, ...rest } = props;
 
   return <LevelCreditContext.Provider value={rest}>{children}</LevelCreditContext.Provider>;
 }
 
-export function useLevelCredit(): LevelCreditSettings {
-  const values = useContext(LevelCreditContext);
+export function useLevelCredit(): APIFetchSettings {
+  const { env, api_url } = useContext(LevelCreditContext);
 
-  const api_url = getLevelCreditApiURL(values || {});
+  if (!env && !api_url) {
+    throw new Error("Missing LevelCredit Provider configuration");
+  }
 
-  return { api_url };
+  const settings: { env?: string; base_url?: string } = {};
+  if (api_url) {
+    settings.base_url = api_url;
+  } else if (env) {
+    settings.env = env;
+  }
+
+  return settings as APIFetchSettings;
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import injectSheet, { Styles } from "react-jss";
 import { CreditDisplayToken } from "src/CreditAPI/types";
-import useInsights, { InsightsObj } from "../useInsights";
+import useInsights from "../useInsights";
+import { InsightsObject } from "@levelcredit/js-lib-api/Credit/Insights/types";
 
 type LoanTypeProps = {
   classes: {
@@ -45,7 +46,7 @@ function LoanType(props: LoanTypeProps): JSX.Element {
   const show_dots_percent = props.show_dots_percent !== undefined ? props.show_dots_percent : true;
 
   const fetchInsights = useInsights();
-  const [insights, setInsights] = useState<InsightsObj | null>(null);
+  const [insights, setInsights] = useState<InsightsObject | null>(null);
 
   useEffect(
     function () {

@@ -1,38 +1,13 @@
 import { useCallback } from "react";
 import { useLevelCredit } from "src/LevelCreditProvider";
-import { CreditAPIError, CreditDisplayToken } from "../types";
+import { CreditDisplayToken } from "../types";
+import LevelCreditAPI from "@levelcredit/js-lib-api";
+import { InsightsObject } from "@levelcredit/js-lib-api/Credit/Insights/types";
 
-type FetchUserInsights = (credit_display_token: CreditDisplayToken) => Promise<InsightsObj>;
-export type InsightsObj = {
-  account_balances: InsightsAccountBalance;
-  total_monthly_payments: number;
-  total_accounts: InsightsTotalAccount;
-  total_public_records: number;
-  utilization: number;
-  total_inquiries: number;
-  oldest_tradeline_years: number;
-  bureau: string;
-  next_update: string;
-  messages: Array<CreditAPIError>;
-};
-
-type InsightsAccountBalance = {
-  revolving: number;
-  mortgage: number;
-  installment: number;
-  open_collection: number;
-};
-
-export type InsightsTotalAccount = {
-  total: number;
-  open: number;
-  closed: number;
-  derogatory: number;
-  open_collection: number;
-};
+type FetchUserInsights = (credit_display_token: CreditDisplayToken) => Promise<InsightsObject>;
 
 export default function useInsights(): FetchUserInsights {
-  const { api_url } = useLevelCredit();
+  const settings = useLevelCredit();
 
   const fetchScores: FetchUserInsights = useCallback(
     async function (credit_display_token: CreditDisplayToken) {
@@ -40,11 +15,11 @@ export default function useInsights(): FetchUserInsights {
         throw new Error("missing display_token");
       }
 
-      const res = await window.fetch(`${api_url}/api/credit/insights/${credit_display_token}`);
+      const res = await LevelCreditAPI.Credit.Insights(settings, { display_token: credit_display_token });
 
-      return res.json();
+      return await res.json();
     },
-    [api_url]
+    [settings]
   );
 
   return fetchScores;

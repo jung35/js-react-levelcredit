@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import injectSheet, { Styles } from "react-jss";
-import useInsights, { InsightsObj } from "src/CreditAPI/insights/useInsights";
+import useInsights from "src/CreditAPI/insights/useInsights";
 import { CreditDisplayToken } from "src/CreditAPI/types";
 import AccountCount from "./AccountCount";
+import { InsightsObject } from "@levelcredit/js-lib-api/Credit/Insights/types";
 
 type AccountSummaryProps = {
   classes: {
@@ -19,7 +20,7 @@ function AccountSummary(props: AccountSummaryProps) {
   const display_token = props.display_token;
 
   const fetchInsights = useInsights();
-  const [insights, setInsights] = useState<InsightsObj | null>(null);
+  const [insights, setInsights] = useState<InsightsObject | null>(null);
 
   useEffect(
     function () {

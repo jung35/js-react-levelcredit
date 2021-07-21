@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import useScores, { ScoresObj } from "src/CreditAPI/score/useScore";
+import useScores from "src/CreditAPI/score/useScore";
 import SimpleScoreDisplay, { SimpleScoreDisplayClassNames } from "./SimpleScoreDisplay";
 import CircularScoreDisplay, { CircularScoreDisplayClassNames } from "./CircularScoreDisplay";
 import { CreditDisplayToken } from "src/CreditAPI/types";
+import { ScoreObject } from "@levelcredit/js-lib-api/Credit/Score/types";
 
 export const SCORE_SIMPLE_DISPLAY = "simple";
 export const SCORE_DONUT_DISPLAY = "donut";
@@ -27,7 +28,7 @@ function ScoreDisplay(props: ScoreAPIScoreProps): JSX.Element {
   const display_token = props.display_token;
 
   const fetchScores = useScores();
-  const [scores, setScores] = useState<ScoresObj | null>(null);
+  const [scores, setScores] = useState<ScoreObject | null>(null);
 
   useEffect(
     function () {
