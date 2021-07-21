@@ -20,12 +20,19 @@ export function useLevelCredit(): APIFetchSettings {
     throw new Error("Missing LevelCredit Provider configuration");
   }
 
-  const settings: { env?: string; base_url?: string } = {};
-  if (api_url) {
-    settings.base_url = api_url;
-  } else if (env) {
-    settings.env = env;
-  }
+  const settings = React.useMemo(
+    function () {
+      const temp_settings: { env?: string; base_url?: string } = {};
+      if (api_url) {
+        temp_settings.base_url = api_url;
+      } else if (env) {
+        temp_settings.env = env;
+      }
 
-  return settings as APIFetchSettings;
+      return temp_settings as APIFetchSettings;
+    },
+    [api_url, env]
+  );
+
+  return settings;
 }
