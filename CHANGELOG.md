@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.1.0-alpha.0
+Introduction of new api library. Temporary private
+
 ## v2.0.0
 
 Major version update because there are breaking changes with no backwards compatibility.
