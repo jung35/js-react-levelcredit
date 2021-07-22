@@ -1,6 +1,6 @@
 {
   "name": "@levelcredit/js-react-levelcredit",
-  "version": "2.0.0",
+  "version": "2.1.0-alpha.0",
   "description": "LevelCredit React Library",
   "main": "index.js",
   "scripts": {
