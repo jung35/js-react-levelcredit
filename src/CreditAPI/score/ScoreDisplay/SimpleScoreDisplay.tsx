@@ -1,5 +1,4 @@
 import React from "react";
-import { ScoresObj } from "src/CreditAPI/score/useScore";
 import UpSvg from "./assets/up.svg";
 import DownSvg from "./assets/down.svg";
 import TUSvg from "./assets/tu.svg";
@@ -8,10 +7,11 @@ import getChangeSinceLastScore from "./utils/getChangeSinceLastScore";
 import getScoreRule from "./utils/getScoreRule";
 import parseLastUpdatedDay from "./utils/parseLastUpdatedDay";
 import injectSheet, { Styles } from "react-jss";
+import { ScoreObject } from "@levelcredit/js-lib-api/Credit/Score/types";
 
 type SimpleScoreDisplayProps = {
   classes: SimpleScoreDisplayClassNames;
-  scores: ScoresObj | null;
+  scores: ScoreObject | null;
 };
 
 export type SimpleScoreDisplayClassNames = {

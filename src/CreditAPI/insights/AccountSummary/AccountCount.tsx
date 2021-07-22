@@ -1,7 +1,7 @@
 import React from "react";
 import injectSheet, { Styles } from "react-jss";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import { InsightsTotalAccount } from "../useInsights";
+import { InsightsTotalAccount } from "@levelcredit/js-lib-api/Credit/Insights/types";
 
 type AccountCountProps = { classes: { AccountCount?: string }; total_accounts?: InsightsTotalAccount };
 

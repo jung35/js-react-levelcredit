@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import parseScoresForChart, { ChartScoreParseStyle } from "src/CreditAPI/score/ScoreChart/utils/parseScoresForChart";
-import useScores, { ScoresObj } from "src/CreditAPI/score/useScore";
+import useScores from "src/CreditAPI/score/useScore";
 import injectSheet, { Styles } from "react-jss";
 import { CreditDisplayToken } from "src/CreditAPI/types";
+import { ScoreObject } from "@levelcredit/js-lib-api/Credit/Score/types";
 
 type ScoreChartProps = {
   classes: {
@@ -36,7 +37,7 @@ function ScoreChart(props: ScoreChartProps): JSX.Element {
   const display_token = props.display_token;
   const classes = props.classes;
   const fetchScores = useScores();
-  const [scores, setScores] = useState<ScoresObj | null>(null);
+  const [scores, setScores] = useState<ScoreObject | null>(null);
   const [chart_data, scores_min, scores_max] = parseScoresForChart(scores, props.dataParseStyle || "11-months-past");
 
   useEffect(

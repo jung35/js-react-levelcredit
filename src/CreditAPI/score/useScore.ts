@@ -1,35 +1,25 @@
 import { useCallback } from "react";
 import { useLevelCredit } from "src/LevelCreditProvider";
-import { CreditAPIError, CreditDisplayToken } from "../types";
+import { CreditDisplayToken } from "../types";
+import LevelCreditAPI from "@levelcredit/js-lib-api";
+import { ScoreObject } from "@levelcredit/js-lib-api/Credit/Score/types";
 
-type FetchUserScores = (score_display_token: CreditDisplayToken) => Promise<ScoresObj>;
-
-export type ScoresObj = {
-  current_score: number;
-  change_since_first: number;
-  scores: ScoresObjScores;
-  next_update: string;
-  messages: Array<CreditAPIError>;
-};
-
-export type ScoresObjScores = {
-  [key: string]: string;
-};
+type FetchUserScores = (credit_display_token: CreditDisplayToken) => Promise<ScoreObject>;
 
 export default function useScores(): FetchUserScores {
-  const { api_url } = useLevelCredit();
+  const settings = useLevelCredit();
 
   const fetchScores: FetchUserScores = useCallback(
-    async function (score_display_token: CreditDisplayToken) {
-      if (!score_display_token) {
+    async function (credit_display_token: CreditDisplayToken) {
+      if (!credit_display_token) {
         throw new Error("missing display_token");
       }
 
-      const res = await window.fetch(`${api_url}/api/credit/scores/${score_display_token}`);
+      const res = await LevelCreditAPI.Credit.Score(settings, { display_token: credit_display_token });
 
-      return res.json();
+      return await res.json();
     },
-    [api_url]
+    [settings]
   );
 
   return fetchScores;

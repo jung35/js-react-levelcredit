@@ -1,5 +1,5 @@
-import { ScoresObj, ScoresObjScores } from "src/CreditAPI/score/useScore";
 import moment from "moment";
+import { ScoreObject, ScoreObjectScores } from "@levelcredit/js-lib-api/Credit/Score/types";
 
 type ChartScoreData = { month: string; date?: string; score?: number };
 export type ChartScoreParseStyle = "11-months-past" | "12-scores";
@@ -11,7 +11,7 @@ type ChartMaxScore = number | null;
 const today = moment();
 
 export default function parseScoresForChart(
-  scores: ScoresObj | null,
+  scores: ScoreObject | null,
   style: ChartScoreParseStyle
 ): ChartScoreParsedData {
   if (!scores?.scores) {
@@ -37,7 +37,7 @@ export default function parseScoresForChart(
   return [score_data, Math.min(...scores_list), Math.max(...scores_list)];
 }
 
-function parseStyle12Scores(scores: ScoresObjScores): Array<ChartScoreData> {
+function parseStyle12Scores(scores: ScoreObjectScores): Array<ChartScoreData> {
   const scores_dates = Object.keys(scores).slice(0, 12);
   const scores_list = Object.values(scores)
     .slice(0, 12)
@@ -56,7 +56,7 @@ function parseStyle12Scores(scores: ScoresObjScores): Array<ChartScoreData> {
   return scores_data;
 }
 
-function parseStyle11Months(scores: ScoresObjScores): Array<ChartScoreData> {
+function parseStyle11Months(scores: ScoreObjectScores): Array<ChartScoreData> {
   const scores_dates = Object.keys(scores);
   const scores_monthyear = scores_dates.map(function (date_string) {
     return date_string.substring(2, 7); // '5678-12-34' => '78-12'
