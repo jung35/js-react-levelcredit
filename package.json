@@ -1,12 +1,12 @@
 {
   "name": "@levelcredit/js-react-levelcredit",
-  "version": "2.1.0-alpha.0",
+  "version": "2.1.0-alpha.1",
   "description": "LevelCredit React Library",
   "main": "index.js",
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "watch": "rollup -c rollup.config.js -w",
-    "release": "npm run build && npm publish --registry=https://npm.pkg.github.com"
+    "release": "npm run build && cd dist/ && npm publish --registry=https://npm.pkg.github.com"
   },
   "peerDependencies": {
     "moment": "^2.29.0",
