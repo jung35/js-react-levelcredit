@@ -10,7 +10,7 @@ export default function useInsights(): FetchUserInsights {
   const settings = useLevelCredit();
 
   const fetchScores: FetchUserInsights = useCallback(
-    async function (credit_display_token: CreditDisplayToken) {
+    async function (credit_display_token) {
       if (!credit_display_token) {
         throw new Error("missing display_token");
       }
