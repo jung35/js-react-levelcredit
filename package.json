@@ -6,16 +6,13 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "watch": "rollup -c rollup.config.js -w",
-    "release": "npm run build && cd dist/ && npm publish --registry=https://npm.pkg.github.com"
+    "release": "npm run build && cd dist/ && npm publish --access public"
   },
   "peerDependencies": {
     "moment": "^2.29.0",
     "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8.0 || ^17.0.0",
     "recharts": "^2.0.9"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "repository": {
     "type": "git",
