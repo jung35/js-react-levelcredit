@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import parseScoresForChart, { ChartScoreParseStyle } from "src/CreditAPI/score/ScoreChart/utils/parseScoresForChart";
-import useScores from "src/CreditAPI/score/useScore";
+import useScore from "src/CreditAPI/score/useScore";
 import injectSheet, { Styles } from "react-jss";
 import { CreditDisplayToken } from "src/CreditAPI/types";
-import { ScoreObject } from "@levelcredit/js-lib-api/Credit/Score/types";
 
 type ScoreChartProps = {
   classes: {
@@ -34,22 +33,9 @@ const styles: unknown = {
 };
 
 function ScoreChart(props: ScoreChartProps): JSX.Element {
-  const display_token = props.display_token;
   const classes = props.classes;
-  const fetchScores = useScores();
-  const [scores, setScores] = useState<ScoreObject | null>(null);
+  const [scores] = useScore(props.display_token);
   const [chart_data, scores_min, scores_max] = parseScoresForChart(scores, props.dataParseStyle || "11-months-past");
-
-  useEffect(
-    function () {
-      (async function () {
-        const scores = await fetchScores(display_token);
-
-        setScores(scores);
-      })();
-    },
-    [fetchScores, display_token]
-  );
 
   const chart_min = scores_min ? Math.max(scores_min - (scores_min % 10 || 10), 300) : 0;
   const chart_max = scores_max ? Math.min(scores_max + 10 - (scores_max % 10), 850) : 0;
