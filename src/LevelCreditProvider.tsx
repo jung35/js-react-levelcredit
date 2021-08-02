@@ -1,5 +1,8 @@
-import React, { createContext, useContext } from "react";
+import React, { useMemo } from "react";
 import { APIAuthType, APIFetchSettings } from "@levelcredit/js-lib-api/types";
+import { ScoreProvider } from "./CreditAPI/score/useScore";
+import { InsightsProvider } from "./CreditAPI/insights/useInsights";
+import { LevelCreditContext } from "./useLevelCredit";
 
 type LevelCreditEnv = "development" | "sandbox" | "production";
 
@@ -17,22 +20,10 @@ type OptionalLevelCreditSettings = {
   auth_type?: APIAuthType;
 };
 
-const LevelCreditContext = createContext<LevelCreditProviderProps>({});
-
 export default function LevelCreditProvider(props: LevelCreditProviderProps & { children?: JSX.Element }): JSX.Element {
-  const { children, ...rest } = props;
+  const { children, env, api_url, auth_token, auth_type } = props;
 
-  return <LevelCreditContext.Provider value={rest}>{children}</LevelCreditContext.Provider>;
-}
-
-export function useLevelCredit(): APIFetchSettings {
-  const { env, api_url, auth_token, auth_type } = useContext(LevelCreditContext);
-
-  if (!env && !api_url) {
-    throw new Error("Missing LevelCredit Provider configuration");
-  }
-
-  const settings = React.useMemo(
+  const settings = useMemo(
     function () {
       const temp_settings: OptionalLevelCreditSettings = {};
 
@@ -54,5 +45,11 @@ export function useLevelCredit(): APIFetchSettings {
     [api_url, auth_token, auth_type, env]
   );
 
-  return settings;
+  return (
+    <LevelCreditContext.Provider value={settings}>
+      <ScoreProvider>
+        <InsightsProvider>{children}</InsightsProvider>
+      </ScoreProvider>
+    </LevelCreditContext.Provider>
+  );
 }

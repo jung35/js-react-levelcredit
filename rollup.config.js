@@ -11,7 +11,7 @@ const config = {
   external: ["react", "react-dom", "recharts", "moment"],
   output: { dir: "dist", format: "cjs", exports: "named" },
   plugins: [
-    cleaner({ targets: ["./dist/"] }),
+    // cleaner({ targets: ["./dist/"] }),
     copy({ targets: [{ src: ["package.json", "README.md"], dest: "dist/" }] }),
     image(),
     typescript(),

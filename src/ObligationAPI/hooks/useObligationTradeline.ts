@@ -1,7 +1,7 @@
 import LevelCreditAPI from "@levelcredit/js-lib-api";
 import { ObligationType } from "@levelcredit/js-lib-api/Obligation/types";
 import { useCallback } from "react";
-import { useLevelCredit } from "src/LevelCreditProvider";
+import useLevelCredit from "src/useLevelCredit";
 import { ObligationTradelineObject } from "../types";
 
 type FetchObligationTradeline = (
