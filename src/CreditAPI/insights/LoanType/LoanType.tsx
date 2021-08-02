@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import injectSheet, { Styles } from "react-jss";
 import { CreditDisplayToken } from "src/CreditAPI/types";
 import useInsights from "../useInsights";
-import { InsightsObject } from "@levelcredit/js-lib-api/Credit/Insights/types";
 
 type LoanTypeProps = {
   classes: {
@@ -45,19 +44,7 @@ function LoanType(props: LoanTypeProps): JSX.Element {
   const display_token = props.display_token;
   const show_dots_percent = props.show_dots_percent !== undefined ? props.show_dots_percent : true;
 
-  const fetchInsights = useInsights();
-  const [insights, setInsights] = useState<InsightsObject | null>(null);
-
-  useEffect(
-    function () {
-      (async function () {
-        const insights = await fetchInsights(display_token);
-
-        setInsights(insights);
-      })();
-    },
-    [fetchInsights, display_token]
-  );
+  const [insights] = useInsights(display_token);
 
   const account_balances = insights?.account_balances;
   const total_amount =
@@ -170,7 +157,7 @@ for (let i = 0; i < loan_summary_types.length; i++) {
   };
 }
 
-const styles = {
+const styles: unknown = {
   LoanType: {
     width: "100%",
     maxWidth: 400,
@@ -239,4 +226,4 @@ const styles = {
   },
 };
 
-export default injectSheet((styles as unknown) as Styles)(LoanType);
+export default injectSheet(styles as Styles)(LoanType);

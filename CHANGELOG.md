@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.1.0-alpha.2
+Hooks reworked to contain api response data and state of api call
+
+## v2.1.0-alpha.1
+New Tradeline history component for ObligationAPI
+
 ## v2.1.0-alpha.0
 Introduction of new api library. Temporary private
 

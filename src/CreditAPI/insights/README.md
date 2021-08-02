@@ -15,28 +15,33 @@
 import { useInsights } from "@levelcredit/js-react-levelcredit";
 
 function ReactComponent() {
-    const fetchInsights: FetchUserInsights = useInsights();
+    const { insights, pending, loading, fetch }: InsightsHook = useInsights();
     const display_token = ...;
-    const [insights, setInsights] = useState<InsightsObj | null>(null);
+    const fetch_insights = pending && !loading;
 
     useEffect(
         function () {
-            (async function () {
-                const insights = await fetchInsights(display_token);
-
-                setInsights(insights);
-            })();
+            if (fetch_insights) {
+                fetch(display_token);
+            }
         },
-        [fetchInsights, display_token]
+        [fetch, display_token, fetch_insights]
     );
 }
 ```
 
 #### Types
 ```ts
-type FetchUserInsights = (credit_display_token: CreditDisplayToken) => Promise<InsightsObj>;
+type InsightsHook = {
+  insights: InsightsObject | null;
+  pending: boolean;
+  loading: boolean;
+  fetch: FetchUserInsights;
+};
 
-export type InsightsObj = {
+type FetchUserInsights = (credit_display_token: CreditDisplayToken) => Promise<InsightsObject>;
+
+type InsightsObject = {
   account_balances: InsightsAccountBalance; // { revolving: number; mortgage: number; installment: number; open_collection: number }
   total_monthly_payments: number;
   total_accounts: InsightsTotalAccount; // { total: number; open: number; closed: number; derogatory: number; open_collection: number }
