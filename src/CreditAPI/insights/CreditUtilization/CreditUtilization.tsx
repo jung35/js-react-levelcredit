@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import injectSheet, { Styles } from "react-jss";
 import { CreditDisplayToken } from "src/CreditAPI/types";
 import useInsights from "../useInsights";
-import { InsightsObject } from "@levelcredit/js-lib-api/Credit/Insights/types";
 
 type CreditUtilizationProps = {
   classes: {
@@ -28,19 +27,7 @@ function CreditUtilization(props: CreditUtilizationProps): JSX.Element {
   const classes = props.classes;
   const display_token = props.display_token;
 
-  const fetchInsights = useInsights();
-  const [insights, setInsights] = useState<InsightsObject | null>(null);
-
-  useEffect(
-    function () {
-      (async function () {
-        const insights = await fetchInsights(display_token);
-
-        setInsights(insights);
-      })();
-    },
-    [fetchInsights, display_token]
-  );
+  const [insights] = useInsights(display_token);
 
   const utilization = insights && insights.utilization >= 0 ? insights.utilization : NaN;
 
