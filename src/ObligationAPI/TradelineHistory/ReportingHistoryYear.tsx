@@ -111,7 +111,7 @@ function ReportingHistoryStatus(props: ReportingHistoryStatusProps) {
     case NEGATIVE_LATE_60:
       return <span className={classes[NEGATIVE_LATE_60]}>60</span>;
     case NEGATIVE_LATE_90:
-      return <span className={classes[NEGATIVE_LATE_90]}>120</span>;
+      return <span className={classes[NEGATIVE_LATE_90]}>90</span>;
     case NEGATIVE_LATE_120:
       return <span className={classes[NEGATIVE_LATE_120]}>120</span>;
     case NEGATIVE_LATE_150:
