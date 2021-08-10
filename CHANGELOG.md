@@ -1,13 +1,9 @@
 # Changelog
 
-## v2.1.0-alpha.2
-Hooks reworked to contain api response data and state of api call
-
-## v2.1.0-alpha.1
-New Tradeline history component for ObligationAPI
-
-## v2.1.0-alpha.0
-Introduction of new api library. Temporary private
+## v2.1.0
+* Hooks reworked to contain api response data and state of api call
+* New Tradeline history component for ObligationAPI
+* Introduction of new api library: [@levelcredit/js-lib-api](https://github.com/levelcredit/js-lib-api)
 
 ## v2.0.0
 
