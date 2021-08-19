@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.1.1
+* Fixed CORS passing cookie 
+
 ## v2.1.0
 * Hooks reworked to contain api response data and state of api call
 * New Tradeline history component for ObligationAPI
