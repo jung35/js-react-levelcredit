@@ -13,12 +13,12 @@ Example of what this will return:
 * [Dependencies](#dependencies)
     * [Dependency when using watch](#dependency-when-using-watch)
 * [API](#api)
-    * [`<LevelCreditProvider />`](#--levelcreditprovider----)
+    * [`<LevelCreditProvider />`](#levelcreditprovider-)
     * [CreditAPI](#credit-api)
         * [Score components](src/CreditAPI/score/README.md)
         * [Insight components](src/CreditAPI/insights/README.md)
     * [ObligationAPI](#obligationapi)
-        * [`<TradelineHistory />`](#--tradelinehistory----)
+        * [`<TradelineHistory />`](#tradelinehistory-)
         
 ## GitHub Repositories
 * [Component Library](https://github.com/levelcredit/js-react-levelcredit)
