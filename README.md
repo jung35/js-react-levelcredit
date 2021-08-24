@@ -11,13 +11,14 @@ Example of what this will return:
 * [Getting Started](#getting-started)
     * [Example](#example)
 * [Dependencies](#dependencies)
-    * [Dependency when using watch](#dependency-when-using-watch)
 * [API](#api)
-    * [`<LevelCreditProvider />`](#levelcreditprovider-)
-    * [CreditAPI](#credit-api)
+    * [Provider](#provider)
+        * [`<LevelCreditProvider />`](#levelcreditprovider-)
+    * [CreditAPI](#creditapi)
         * [Score components](src/CreditAPI/score/README.md)
         * [Insight components](src/CreditAPI/insights/README.md)
     * [ObligationAPI](#obligationapi)
+        * [`useObligationTradeline()`](#useobligationtradeline-fetchobligationtradeline)
         * [`<TradelineHistory />`](#tradelinehistory-)
         
 ## GitHub Repositories
@@ -59,7 +60,9 @@ To use this component, there are some required dependencies. The following depen
 
 ## API
 
-### `<LevelCreditProvider />`
+### Provider
+
+#### `<LevelCreditProvider />`
 ```js
 import { LevelCreditProvider } from "@levelcredit/js-react-levelcredit";
 ```
@@ -80,11 +83,35 @@ Authorization: Bearer <access_token>
 SID: <jwt>
 ```
 
+---
+
 ### CreditAPI
 * [Score components](src/CreditAPI/score/README.md)
 * [Insights components](src/CreditAPI/insights/README.md)
 
+---
+
 ### ObligationAPI
+
+#### `useObligationTradeline(): FetchObligationTradeline`
+```js
+import { useObligationTradeline } from "@levelcredit/js-react-levelcredit";
+```
+
+```ts
+type FetchObligationTradeline = (
+  obligation: ObligationType, // ObligationType: "contracts" | "leases" | "utilities"
+  obligation_id: number
+) => Promise<ObligationTradelineObject>;
+
+type ObligationTradelineObject = {
+    [key: string]: TradelineStatusObject, // ["YYYY-DD"]: TradelineStatusObject,
+};
+
+type TradelineStatusObject = { status: TradelineStatus };
+```
+
+[TradelineStatus types](src/ObligationAPI/types.ts#L3-L15)
 
 #### `<TradelineHistory />`
 ```js
