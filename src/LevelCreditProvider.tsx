@@ -1,20 +1,18 @@
 import React, { useMemo } from "react";
-import { APIAuthType, APIFetchSettings } from "@levelcredit/js-lib-api/types";
+import { APIAuthType, APIFetchSettings, EnvType } from "@levelcredit/js-lib-api/types";
 import { ScoreProvider } from "./CreditAPI/score/useScore";
 import { InsightsProvider } from "./CreditAPI/insights/useInsights";
 import { LevelCreditContext } from "./useLevelCredit";
 
-type LevelCreditEnv = "development" | "sandbox" | "production";
-
 export type LevelCreditProviderProps = {
-  env?: LevelCreditEnv;
+  env?: EnvType;
   api_url?: string;
   auth_token?: string;
   auth_type?: APIAuthType;
 };
 
 type OptionalLevelCreditSettings = {
-  env?: LevelCreditEnv;
+  env?: EnvType;
   base_url?: string;
   auth_token?: string;
   auth_type?: APIAuthType;

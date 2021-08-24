@@ -75,7 +75,7 @@ export function ScoreProvider(props: { children?: JSX.Element }): JSX.Element {
   return <ScoreContext.Provider value={[scores, fetch]}>{props.children}</ScoreContext.Provider>;
 }
 
-export default function useScores(credit_display_token?: CreditDisplayToken): ScoreHook {
+export default function useScore(credit_display_token?: CreditDisplayToken): ScoreHook {
   const [scores, fetch] = useContext(ScoreContext);
 
   React.useEffect(

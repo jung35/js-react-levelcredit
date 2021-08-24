@@ -1,45 +1,32 @@
-[&lt; back](https://github.com/levelcredit/js-react-levelcredit)
-# API -- CreditAPI Insights feature
+[&lt; back](../../../README.md)
+# CreditAPI Insights feature
 
 `display_token` anywhere in this document will be referring to the CreditAPI display token
 
 ---
 
-### `useInsights()`
-#### Returns
+### `useInsights(display_token?: CreditDisplayToken): InsightsHook`
+```ts
+type CreditDisplayToken = string;
 
-* `FetchUserScores`: A promise function ready to be used to return scores object with a valid display token created for scores feature.
+type InsightsHook = [insights: InsightsObject | null, fetch: FetchUserInsights];
+```
+
+On component load, there will be an api call made to get user's insights. However, if there was already another component that previously made api call, it will not need to make new api call.
 
 #### Example
 ```ts
 import { useInsights } from "@levelcredit/js-react-levelcredit";
 
 function ReactComponent() {
-    const { insights, pending, loading, fetch }: InsightsHook = useInsights();
     const display_token = ...;
-    const fetch_insights = pending && !loading;
-
-    useEffect(
-        function () {
-            if (fetch_insights) {
-                fetch(display_token);
-            }
-        },
-        [fetch, display_token, fetch_insights]
-    );
+    const [insights] = useInsights(display_token);
 }
 ```
 
 #### Types
 ```ts
-type InsightsHook = {
-  insights: InsightsObject | null;
-  pending: boolean;
-  loading: boolean;
-  fetch: FetchUserInsights;
-};
-
-type FetchUserInsights = (credit_display_token: CreditDisplayToken) => Promise<InsightsObject>;
+type FetchUserInsights = (display_token?: CreditDisplayToken) => Promise<null | InsightsObject>;
 
 type InsightsObject = {
   account_balances: InsightsAccountBalance; // { revolving: number; mortgage: number; installment: number; open_collection: number }
@@ -51,7 +38,7 @@ type InsightsObject = {
   oldest_tradeline_years: number;
   bureau: string;
   next_update: string;
-  messages: Array<CreditAPIError>; // { code: number; message: string; priority: CreditAPIErrorPriority };
+  messages: Array<LevelCreditAPIError>; // { code: number; message: string; priority: CreditAPIErrorPriority };
 };
 ```
 

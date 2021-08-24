@@ -1,47 +1,39 @@
-[&lt; back](https://github.com/levelcredit/js-react-levelcredit)
-# API -- CreditAPI Score feature
+[&lt; back](../../../README.md)
+# CreditAPI Score feature
 
 `display_token` anywhere in this document will be referring to the CreditAPI display token
 
 ---
 
-### `useScore()`
-#### Returns
+### `useScore(display_token?: CreditDisplayToken):  ScoreHook`
+```ts
+type CreditDisplayToken = string;
 
-* `FetchUserScores`: A promise function ready to be used to return scores object with a valid display token created for scores feature.
+type ScoreHook = [score: ScoreObject | null, fetch: FetchUserScores];
+```
+
+On component load, there will be an api call made to get user's scores. However, if there was already another component that previously made api call, it will not need to make new api call.
 
 #### Example
 ```ts
 import { useScore } from "@levelcredit/js-react-levelcredit";
 
 function ReactComponent() {
-    const fetchScores: FetchUserScores = useScore();
     const display_token = ...;
-    const [scores, setScores] = useState<ScoresObj | null>(null);
-
-    useEffect(
-        function () {
-            (async function () {
-                const scores = await fetchScores(display_token);
-
-                setScores(scores);
-            })();
-        },
-        [fetchScores, display_token]
-    );
+    const [scores, fetchScores] = useScore(display_token);
 }
 ```
 
 #### Types
 ```ts
-type FetchUserScores = (credit_display_token: CreditDisplayToken) => Promise<ScoresObj>;
+type FetchUserScores = (display_token?: CreditDisplayToken) => Promise<null | ScoreObject>;
 
-type ScoresObj = {
-  current_score: number;
-  change_since_first: number;
-  scores: ScoresObjScores; // { [key: string]: string }
-  next_update: string;
-  messages: Array<CreditAPIError>; // { code: number; message: string; priority: CreditAPIErrorPriority };
+type ScoreObject = {
+    current_score: number;
+    change_since_first: number;
+    scores: ScoreObjectScores;// { [key: string]: string }
+    next_update: string;
+    messages: Array<LevelCreditAPIError>; // { code: number; message: string; priority: CreditAPIErrorPriority };
 };
 ```
 
@@ -86,4 +78,3 @@ Creates chart using `recharts` displaying user's credit score history.
 
 #### JSS Classes
 `ScoreChart`, `XAxis`, `YAxis`, `Line`, `TooltipContent`
-
