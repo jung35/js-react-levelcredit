@@ -70,7 +70,7 @@ import { LevelCreditProvider } from "@levelcredit/js-react-levelcredit";
 | Props | Type | Default |
 |---|---|---|
 | env (REQUIRED) | `"development" \| "staging" \| "production"` | *`NULL`* |
-| api_url | `string` | *`NULL`* |
+| base_url | `string` | *`NULL`* |
 | auth_token | `string` | *`NULL`* |
 | auth_type | [`APIAuthType`](https://github.com/levelcredit/js-lib-api/blob/main/src/types.ts#L26) | `none` |
 
