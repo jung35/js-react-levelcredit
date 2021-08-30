@@ -12,7 +12,7 @@ export default function LevelCreditProvider(props: LevelCreditProviderProps & { 
     function () {
       const temp_settings: OptionalLevelCreditSettings = {};
 
-      if (api_url) {
+      if (api_url || base_url) {
         temp_settings.base_url = base_url || api_url;
       } else if (env) {
         temp_settings.env = env;
