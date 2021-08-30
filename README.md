@@ -1,8 +1,8 @@
-# LevelCredit - ReactJS Component
+# LevelCredit ReactJS Component Library
 
 <a href="https://www.npmjs.com/package/@levelcredit/js-react-levelcredit"><img src="https://img.shields.io/npm/v/@levelcredit/js-react-levelcredit" alt="npm version"></a>
 
-This ReactJS component will allow a partner to display the TransUnion Vantage 2.0 Credit Score from LevelCredit with the user's browser while maintaining security and compliance with TransUnion's policies. 
+This ReactJS component library will allow a partner to display the TransUnion Vantage 2.0 Credit Score from LevelCredit with the user's browser while maintaining security and compliance with TransUnion's policies. 
 Example of what this will return:
 
 <img src="https://files.readme.io/7c5c66b-ScoreComponent.png" alt="Credit Score Component Example" width="300"/>
@@ -70,7 +70,7 @@ import { LevelCreditProvider } from "@levelcredit/js-react-levelcredit";
 | Props | Type | Default |
 |---|---|---|
 | env (REQUIRED) | `"development" \| "staging" \| "production"` | *`NULL`* |
-| api_url | `string` | *`NULL`* |
+| base_url | `string` | *`NULL`* |
 | auth_token | `string` | *`NULL`* |
 | auth_type | [`APIAuthType`](https://github.com/levelcredit/js-lib-api/blob/main/src/types.ts#L26) | `none` |
 
@@ -114,6 +114,9 @@ type TradelineStatusObject = { status: TradelineStatus };
 [TradelineStatus types](src/ObligationAPI/types.ts#L3-L15)
 
 #### `<TradelineHistory />`
+
+<img src="https://raw.githubusercontent.com/levelcredit/js-app-component-demo/master/component-screenshots/ObligationAPI/TradelineHistory.png" alt="ObligationAPI TradelineHistory Component" height="128"/> 
+
 ```js
 import { TradelineHistory } from "@levelcredit/js-react-levelcredit";
 ```

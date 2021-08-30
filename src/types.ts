@@ -1,16 +1,26 @@
-import { APIAuthType } from "@levelcredit/js-lib-api/types";
-
-export type LevelCreditEnv = "development" | "sandbox" | "production";
+import { APIAuthType, EnvType } from "@levelcredit/js-lib-api/types";
 
 export type LevelCreditProviderProps = {
-  env?: LevelCreditEnv;
+  /**
+   * Options: "development" | "sandbox" | "production"
+   */
+  env?: EnvType;
+
+  /**
+   * @deprecated use base_url instead
+   */
   api_url?: string;
+
+  /**
+   * Override base api url set by the "env"
+   */
+  base_url?: string;
   auth_token?: string;
   auth_type?: APIAuthType;
 };
 
 export type OptionalLevelCreditSettings = {
-  env?: LevelCreditEnv;
+  env?: EnvType;
   base_url?: string;
   auth_token?: string;
   auth_type?: APIAuthType;
