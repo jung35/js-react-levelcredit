@@ -6,3 +6,4 @@ export { default as useLevelCredit } from "src/useLevelCredit";
 export * from "src/CreditAPI/score";
 export * from "src/CreditAPI/insights";
 export * from "src/ObligationAPI";
+export * from "src/ProtectionAPI";

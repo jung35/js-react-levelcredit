@@ -4,6 +4,7 @@ import { ScoreProvider } from "./CreditAPI/score/useScore";
 import { InsightsProvider } from "./CreditAPI/insights/useInsights";
 import { LevelCreditContext } from "./useLevelCredit";
 import { LevelCreditProviderProps, OptionalLevelCreditSettings } from "./types";
+import { MonitoringAlertProvider } from "./ProtectionAPI/hooks/useMonitoringAlerts";
 
 export default function LevelCreditProvider(props: LevelCreditProviderProps & { children?: JSX.Element }): JSX.Element {
   const { children, env, api_url, base_url, auth_token, auth_type } = props;
@@ -36,7 +37,9 @@ export default function LevelCreditProvider(props: LevelCreditProviderProps & { 
   return (
     <LevelCreditContext.Provider value={settings}>
       <ScoreProvider>
-        <InsightsProvider>{children}</InsightsProvider>
+        <InsightsProvider>
+          <MonitoringAlertProvider>{children}</MonitoringAlertProvider>
+        </InsightsProvider>
       </ScoreProvider>
     </LevelCreditContext.Provider>
   );
