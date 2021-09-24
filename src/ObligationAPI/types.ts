@@ -16,3 +16,4 @@ export type TradelineStatus =
 
 export type TradelineStringDateObject = { year: number | null; month: number | null };
 export type TradelineDateRange = { start_date: TradelineStringDateObject; end_date: TradelineStringDateObject };
+export type TradelineHistoryDataStyle = "last-24-months" | "last-24-datasets" | "all";

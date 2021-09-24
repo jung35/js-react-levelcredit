@@ -1,6 +1,6 @@
 import React from "react";
 import { TradelineStatusObject } from "@levelcredit/js-lib-api/Obligation/Tradeline/types";
-import { ObligationTradelineObject, TradelineStatus } from "../types";
+import { ObligationTradelineObject, TradelineStatus, TradelineStringDateObject } from "../types";
 import ReportingCheck from "./assets/ReportingCheck";
 import ReportingDot from "./assets/ReportingDot";
 import {
@@ -30,10 +30,11 @@ type ReportingHistoryYearProps = {
   classes: ReportingHistoryYearClasses;
   year: number;
   tradeline: ObligationTradelineObject;
+  start_date: TradelineStringDateObject;
 };
 
 function ReportingHistoryYear(props: ReportingHistoryYearProps): JSX.Element {
-  const { classes, year, tradeline } = props;
+  const { classes, year, tradeline, start_date } = props;
 
   return (
     <tr>
@@ -41,12 +42,17 @@ function ReportingHistoryYear(props: ReportingHistoryYearProps): JSX.Element {
         <span>{year}</span>
       </td>
       {months_loop.map(function (val, i) {
-        const formatted_month = (i + 1).toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false });
+        const month = i + 1;
+        const formatted_month = month.toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false });
         const report_data: null | TradelineStatusObject = tradeline[`${year}-${formatted_month}`];
+        const outside_range =
+          start_date.year &&
+          start_date.month &&
+          (start_date.year > year || (start_date.year === year && start_date.month > month));
 
         return (
           <td key={i} className={classes.TableColumn}>
-            <ReportingHistoryStatus classes={classes} report_data={report_data} />
+            <ReportingHistoryStatus classes={classes} report_data={outside_range ? null : report_data} />
           </td>
         );
       })}

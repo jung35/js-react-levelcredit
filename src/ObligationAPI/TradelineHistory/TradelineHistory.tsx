@@ -2,7 +2,7 @@ import { ObligationType } from "@levelcredit/js-lib-api/Obligation/types";
 import React, { useEffect, useState } from "react";
 import injectSheet, { Styles } from "react-jss";
 import useObligationTradeline from "../hooks/useObligationTradeline";
-import { ObligationTradelineObject } from "../types";
+import { ObligationTradelineObject, TradelineHistoryDataStyle } from "../types";
 import moment from "moment";
 import getTradelineDateRange from "./utils/getTradelineDateRange";
 import ReportingHistoryYear, { ReportingHistoryYearClasses } from "./ReportingHistoryYear";
@@ -16,6 +16,11 @@ type TradelineHistoryProps = {
   } & ReportingHistoryYearClasses;
   obligation: ObligationType;
   obligation_id: number;
+
+  /**
+   * Default: `last-24-months`
+   */
+  data_style?: TradelineHistoryDataStyle;
 };
 
 const today = moment();
@@ -28,8 +33,9 @@ function TradelineHistory(props: TradelineHistoryProps) {
   const classes = props.classes;
   const obligation = props.obligation;
   const obligation_id = props.obligation_id;
+  const data_style: TradelineHistoryDataStyle = props.data_style || "last-24-months";
   const fetchTradeline = useObligationTradeline();
-  const { end_date, start_date } = getTradelineDateRange(Object.keys(tradeline));
+  const { start_date, end_date } = getTradelineDateRange(Object.keys(tradeline), data_style);
 
   useEffect(
     function () {
@@ -63,6 +69,7 @@ function TradelineHistory(props: TradelineHistoryProps) {
               key={i}
               year={(end_date.year || current_year) - i}
               tradeline={tradeline}
+              start_date={start_date}
               classes={classes}
             />
           );
