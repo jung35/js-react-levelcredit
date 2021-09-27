@@ -9,6 +9,7 @@ import moment from "moment";
 import cx from "classnames";
 import AlertLoading, { AlertLoadingClasses } from "./AlertLoading";
 import { CSSTransition } from "react-transition-group";
+import useIsMounted from "src/utils/useIsMounted";
 
 export type AlertProps = {
   classes: AlertPropsClasses;
@@ -43,6 +44,7 @@ function Alert(props: AlertProps) {
   const fetchTUData = useLoadTUScript();
   const [, fetchAlerts, dismissAlert] = useMonitoringAlerts();
   const [dismiss_saving, setDismissSaving] = useState(false);
+  const mounted = useIsMounted();
 
   const get_alert_data = !data && !loading && open;
   const alert_id = alert.id;
@@ -51,24 +53,38 @@ function Alert(props: AlertProps) {
     function () {
       if (get_alert_data) {
         (async function () {
+          if (!mounted.current) {
+            return;
+          }
+
           setLoading(true);
           try {
             const alert = await fetchAlerts(alert_id);
+            if (!mounted.current) {
+              return;
+            }
+
             if ("product_display_id" in alert && alert.product_display_id) {
               const data = await fetchTUData(alert.product_display_id);
 
+              if (!mounted.current) {
+                return;
+              }
               setData(data);
             } else {
               setData([]);
             }
           } catch (error) {
+            if (!mounted.current) {
+              return;
+            }
             setData(null);
           }
           setLoading(false);
         })();
       }
     },
-    [alert_id, fetchAlerts, fetchTUData, get_alert_data]
+    [alert_id, fetchAlerts, fetchTUData, get_alert_data, mounted]
   );
 
   const onOpen = useCallback(function () {
