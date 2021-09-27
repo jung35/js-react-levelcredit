@@ -6,6 +6,7 @@ import { ObligationTradelineObject, TradelineHistoryDataStyle } from "../types";
 import moment from "moment";
 import getTradelineDateRange from "./utils/getTradelineDateRange";
 import ReportingHistoryYear, { ReportingHistoryYearClasses } from "./ReportingHistoryYear";
+import useIsMounted from "src/utils/useIsMounted";
 
 type TradelineHistoryProps = {
   classes: {
@@ -29,6 +30,7 @@ const months_loop = new Array(12).fill(0);
 
 function TradelineHistory(props: TradelineHistoryProps) {
   const [tradeline, setTradeline] = useState<ObligationTradelineObject>({});
+  const mounted = useIsMounted();
 
   const classes = props.classes;
   const obligation = props.obligation;
@@ -42,10 +44,12 @@ function TradelineHistory(props: TradelineHistoryProps) {
       (async function () {
         const tradeline = await fetchTradeline(obligation, obligation_id);
 
-        setTradeline(tradeline);
+        if (mounted.current) {
+          setTradeline(tradeline);
+        }
       })();
     },
-    [fetchTradeline, obligation, obligation_id]
+    [fetchTradeline, mounted, obligation, obligation_id]
   );
 
   return (
