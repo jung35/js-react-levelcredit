@@ -24,7 +24,6 @@ export type AlertPropsClasses = {
   AlertInfoType?: string;
   AlertInfoDate?: string;
   AlertInfoDismiss?: string;
-  AlertInfoDismissed?: string;
   AlertInfoOpen?: string;
   AlertInfoOpenIcon?: string;
   AlertInfoOpenIconOpened?: string;
@@ -115,10 +114,7 @@ function Alert(props: AlertProps) {
 
         {!alert.dismissed_at && (
           <button
-            className={cx({
-              [classes.AlertInfoDismiss as string]: !alert.dismissed_at,
-              [classes.AlertInfoDismissed as string]: alert.dismissed_at,
-            })}
+            className={classes.AlertInfoDismiss}
             disabled={dismiss_saving || Boolean(alert.dismissed_at)}
             onClick={onDismiss}
           >
@@ -204,33 +200,23 @@ const styles: unknown = {
     height: 32,
     padding: [0, 18],
     margin: [0, 15, 0, 0],
-    backgroundColor: "#21cc6f",
-    borderRadius: 3,
-    textTransform: "none",
-    fontSize: 13,
-    fontWeight: 500,
-    color: "#fff",
-    border: 0,
-
-    "&:disabled": {
-      backgroundColor: "rgba(33, 204, 111, 0.6)",
-    },
-  },
-
-  AlertInfoDismissed: {
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    height: 32,
-    padding: [0, 18],
-    margin: [0, 15, 0, 0],
+    backgroundColor: "#fff",
     borderRadius: 3,
     textTransform: "none",
     fontSize: 13,
     fontWeight: 500,
     color: "#000",
-    border: 0,
-    backgroundColor: "transparent",
+    border: "1px solid #ececec",
+    transition: "background-color 180ms linear, color 180ms linear",
+
+    "&:disabled": {
+      backgroundColor: "#ececec",
+      color: "#777",
+    },
+
+    "&:hover": {
+      backgroundColor: "#fafafa",
+    },
   },
 
   AlertInfoOpen: {
