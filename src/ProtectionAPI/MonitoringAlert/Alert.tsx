@@ -20,13 +20,14 @@ export type AlertProps = {
 export type AlertPropsClasses = {
   Alert?: string;
   AlertInfo?: string;
-  AlertDetails?: string;
+  AlertInfoDetails?: string;
   AlertInfoType?: string;
   AlertInfoDate?: string;
   AlertInfoDismiss?: string;
   AlertInfoOpen?: string;
   AlertInfoOpenIcon?: string;
   AlertInfoOpenIconOpened?: string;
+  AlertDetails?: string;
   AlertDetailsEnter?: string;
   AlertDetailsEnterActive?: string;
   AlertDetailsExit?: string;
@@ -109,8 +110,10 @@ function Alert(props: AlertProps) {
   return (
     <li className={classes.Alert}>
       <div className={classes.AlertInfo} onClick={onOpen}>
-        <div className={classes.AlertInfoType}>{monitoring_types[alert.alert_type as MonitoringType]}</div>
-        <div className={classes.AlertInfoDate}>{created_date.format("MMMM D, YYYY")}</div>
+        <div className={classes.AlertInfoDetails}>
+          <div className={classes.AlertInfoType}>{monitoring_types[alert.alert_type as MonitoringType]}</div>
+          <div className={classes.AlertInfoDate}>{created_date.format("MMMM D, YYYY")}</div>
+        </div>
 
         {!alert.dismissed_at && (
           <button
@@ -167,11 +170,17 @@ const styles: unknown = {
     padding: [15, 19],
   },
 
+  AlertInfoDetails: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+  },
+
   AlertInfoType: {
     fontSize: 15,
     lineHeight: 1,
     color: "#020202",
-    margin: 0,
+    margin: [0, 0, 8],
   },
 
   AlertInfoDate: {
@@ -181,16 +190,6 @@ const styles: unknown = {
     color: "#979797",
     display: "flex",
     alignItems: "center",
-
-    "&:before": {
-      content: '"·"',
-      display: "block",
-      fontSize: 25,
-      fontWeight: 700,
-      lineHeight: 0,
-      verticalAlign: "middle",
-      margin: [0, 7],
-    },
   },
 
   AlertInfoDismiss: {
