@@ -47,7 +47,7 @@ function MonitoringAlert(props: MonitoringAlertProps) {
       {allow_dismissed_alerts && (
         <div
           className={classes.AlertMonitoringDismissed}
-          style={{ maxHeight: (show_dismissed ? dismissed_alerts.length * 100 : 0) + "px" }}
+          style={{ maxHeight: (show_dismissed ? dismissed_alerts.length * 700 : 0) + "px" }}
         >
           <ul className={classes.MonitoringAlertList}>
             {dismissed_alerts.map(function (alert) {
@@ -56,7 +56,7 @@ function MonitoringAlert(props: MonitoringAlertProps) {
           </ul>
         </div>
       )}
-      {allow_dismissed_alerts && show_view_history_button && (
+      {allow_dismissed_alerts && show_view_history_button && dismissed_alerts.length > 0 && (
         <button className={classes.MonitoringAlertButton} onClick={onClickDismissed}>
           {show_dismissed ? "Close history" : "View history"}
         </button>
@@ -85,9 +85,8 @@ const styles: unknown = {
     cursor: "pointer",
     display: "flex",
     fontSize: 15,
-    fontStyle: "italic",
     fontWeight: "bold",
-    padding: [15],
+    padding: 15,
     justifyContent: "center",
     lineHeight: 1,
     margin: [15, 0, 0],

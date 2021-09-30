@@ -24,7 +24,6 @@ export type AlertPropsClasses = {
   AlertInfoType?: string;
   AlertInfoDate?: string;
   AlertInfoDismiss?: string;
-  AlertInfoDismissed?: string;
   AlertInfoOpen?: string;
   AlertInfoOpenIcon?: string;
   AlertInfoOpenIconOpened?: string;
@@ -113,16 +112,16 @@ function Alert(props: AlertProps) {
         <div className={classes.AlertInfoType}>{monitoring_types[alert.alert_type as MonitoringType]}</div>
         <div className={classes.AlertInfoDate}>{created_date.format("MMMM D, YYYY")}</div>
 
-        <button
-          className={cx({
-            [classes.AlertInfoDismiss as string]: !alert.dismissed_at,
-            [classes.AlertInfoDismissed as string]: alert.dismissed_at,
-          })}
-          disabled={dismiss_saving || Boolean(alert.dismissed_at)}
-          onClick={onDismiss}
-        >
-          {alert.dismissed_at ? "Dismissed" : "Dismiss"}
-        </button>
+        {!alert.dismissed_at && (
+          <button
+            className={classes.AlertInfoDismiss}
+            disabled={dismiss_saving || Boolean(alert.dismissed_at)}
+            onClick={onDismiss}
+          >
+            Dismiss
+          </button>
+        )}
+
         <div className={classes.AlertInfoOpen}>
           <svg
             className={cx(classes.AlertInfoOpenIcon, { [classes.AlertInfoOpenIconOpened as string]: open })}
@@ -157,8 +156,8 @@ const styles: unknown = {
   Alert: {
     margin: [15, 0, 0],
     padding: 0,
-    border: "1px solid rgba(151, 151, 151, 0.3)",
-    background: "rgba(249, 251, 255, 0.6)",
+    border: "1px solid #e6e6e6",
+    background: "#fcfcfc",
   },
 
   AlertInfo: {
@@ -201,33 +200,23 @@ const styles: unknown = {
     height: 32,
     padding: [0, 18],
     margin: [0, 15, 0, 0],
-    backgroundColor: "#21cc6f",
-    borderRadius: 3,
-    textTransform: "none",
-    fontSize: 13,
-    fontWeight: 500,
-    color: "#fff",
-    border: 0,
-
-    "&:disabled": {
-      backgroundColor: "rgba(33, 204, 111, 0.6)",
-    },
-  },
-
-  AlertInfoDismissed: {
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    height: 32,
-    padding: [0, 18],
-    margin: [0, 15, 0, 0],
+    backgroundColor: "#fff",
     borderRadius: 3,
     textTransform: "none",
     fontSize: 13,
     fontWeight: 500,
     color: "#000",
-    border: 0,
-    backgroundColor: "transparent",
+    border: "1px solid #ececec",
+    transition: "background-color 180ms linear, color 180ms linear",
+
+    "&:disabled": {
+      backgroundColor: "#ececec",
+      color: "#777",
+    },
+
+    "&:hover": {
+      backgroundColor: "#fafafa",
+    },
   },
 
   AlertInfoOpen: {
