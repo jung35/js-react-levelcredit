@@ -3,7 +3,7 @@ import { MonitoringObject } from "@levelcredit/js-lib-api/Protection/types";
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import useLevelCredit from "src/useLevelCredit";
 
-type FetchMonitoring = (alert_id?: number) => Promise<null | MonitoringObject>;
+type FetchMonitoring = () => Promise<null | MonitoringObject>;
 type MonitoringHook = [monitoring: null | MonitoringObject, fetch: FetchMonitoring];
 
 const MonitoringContext = createContext<MonitoringHook>([
