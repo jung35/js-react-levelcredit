@@ -8,7 +8,7 @@ import copy from "rollup-plugin-copy";
 
 const config = {
   input: "src/index.ts",
-  external: ["react", "react-dom", "recharts", "moment"],
+  external: ["react", "react-dom", "recharts"],
   output: { dir: "dist", format: "cjs", exports: "named" },
   plugins: [
     cleaner({ targets: ["./dist/"] }),

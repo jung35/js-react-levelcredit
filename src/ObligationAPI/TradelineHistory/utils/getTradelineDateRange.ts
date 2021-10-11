@@ -1,7 +1,7 @@
 import { TradelineDateRange, TradelineHistoryDataStyle, TradelineStringDateObject } from "src/ObligationAPI/types";
-import moment from "moment";
+import dayjs from "dayjs";
 
-const last_24_months = moment().subtract(23, "months");
+const last_24_months = dayjs().subtract(23, "month");
 
 export default function getTradelineDateRange(
   date_list: string[],

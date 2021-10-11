@@ -5,7 +5,7 @@ import useLoadTUScript from "src/ProtectionAPI/hooks/useLoadTUScript";
 import useMonitoringAlerts from "src/ProtectionAPI/hooks/useMonitoringAlerts";
 import { MonitoringType, TUAlertData } from "src/ProtectionAPI/types";
 import AlertData, { AlertDataClasses } from "src/ProtectionAPI/MonitoringAlert/AlertData";
-import moment from "moment";
+import dayjs from "dayjs";
 import cx from "classnames";
 import AlertLoading, { AlertLoadingClasses } from "./AlertLoading";
 import { CSSTransition } from "react-transition-group";
@@ -105,7 +105,7 @@ function Alert(props: AlertProps) {
     [alert_id, dismissAlert, fetchAlerts]
   );
 
-  const created_date = moment(alert.created_at);
+  const created_date = dayjs(alert.created_at);
 
   return (
     <li className={classes.Alert}>

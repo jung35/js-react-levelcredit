@@ -64,7 +64,7 @@ function CustomHookComponent() {
 ## Dependencies
 
 To use this component, there are some required dependencies. The following dependencies are required with their minimum supported versions written next to it:  
-`react@16.8.0`, `react-dom@16.8.0`, `recharts@2.0.9`, `moment@2.29.0`
+`react@16.8.0`, `react-dom@16.8.0`, `recharts@2.0.9`
 
 ## API
 

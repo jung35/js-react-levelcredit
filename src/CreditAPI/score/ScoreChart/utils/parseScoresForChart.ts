@@ -1,4 +1,4 @@
-import moment from "moment";
+import dayjs from "dayjs";
 import { ScoreObject, ScoreObjectScores } from "@levelcredit/js-lib-api/Credit/Score/types";
 
 type ChartScoreData = { month: string; date?: string; score?: number };
@@ -7,8 +7,6 @@ type ChartScoreParsedData = [Array<ChartScoreData>, ChartMinScore, ChartMaxScore
 
 type ChartMinScore = number | null;
 type ChartMaxScore = number | null;
-
-const today = moment();
 
 export default function parseScoresForChart(
   scores: ScoreObject | null,
@@ -47,7 +45,7 @@ function parseStyle12Scores(scores: ScoreObjectScores): Array<ChartScoreData> {
 
   const scores_data = scores_dates
     .map(function (date_string, i) {
-      const date = moment(date_string, "YYYY-MM-DD");
+      const date = dayjs(date_string, "YYYY-MM-DD");
 
       return { month: date.format("MMM"), date: date.format("MMM D, YYYY"), score: scores_list[i] };
     })
@@ -66,7 +64,7 @@ function parseStyle11Months(scores: ScoreObjectScores): Array<ChartScoreData> {
   });
 
   const scores_data: Array<ChartScoreData> = [];
-  const start_date = today.clone().add(1, "months").startOf("month");
+  const start_date = dayjs().add(1, "month").startOf("month");
 
   for (let i = 0; i < 13; i++) {
     const temp_month = start_date.clone().subtract(i, "month");
@@ -74,7 +72,7 @@ function parseStyle11Months(scores: ScoreObjectScores): Array<ChartScoreData> {
       return monthyear_string === temp_month.format("YY-MM");
     });
 
-    const score_date = list_index !== -1 ? moment(scores_dates[list_index], "YYYY-MM-DD") : null;
+    const score_date = list_index !== -1 ? dayjs(scores_dates[list_index], "YYYY-MM-DD") : null;
     const score = list_index !== -1 ? scores_list[list_index] : null;
 
     scores_data.push({

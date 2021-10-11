@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import injectSheet, { Styles } from "react-jss";
 import useObligationTradeline from "../hooks/useObligationTradeline";
 import { ObligationTradelineObject, TradelineHistoryDataStyle } from "../types";
-import moment from "moment";
+import dayjs from "dayjs";
 import getTradelineDateRange from "./utils/getTradelineDateRange";
 import ReportingHistoryYear, { ReportingHistoryYearClasses } from "./ReportingHistoryYear";
 import useIsMounted from "src/utils/useIsMounted";
@@ -24,7 +24,7 @@ type TradelineHistoryProps = {
   data_style?: TradelineHistoryDataStyle;
 };
 
-const today = moment();
+const today = dayjs();
 const current_year = today.year();
 const months_loop = new Array(12).fill(0);
 
@@ -60,7 +60,7 @@ function TradelineHistory(props: TradelineHistoryProps) {
           {months_loop.map(function (val, i) {
             return (
               <th key={i} className={classes.TableColumnHead}>
-                {moment().month(i).format("MMM").charAt(0)}
+                {dayjs().month(i).format("MMM").charAt(0)}
               </th>
             );
           })}
